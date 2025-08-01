@@ -1,0 +1,175 @@
+name: Cache Benchmark
+
+on:
+  push:
+    branches: [sp/cache-benchmark]
+
+env:
+  ROOT_DIR: bench
+  LARGE_SIZE_MB: "512"
+  SMALL_COUNT: "10000"
+  SMALL_SIZE_BYTES: "4096"
+  SALT: "v3"
+
+jobs:
+  # --------------------------------------------------------------------
+  # NS Cloud Cache
+  # --------------------------------------------------------------------
+  prime-nscloud-cache:
+    name: Prime NSCLOUD cache
+    runs-on: namespace-profile-cache-test
+    steps:
+      - name: Prepare directories
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$ROOT_DIR/large" "$ROOT_DIR/many"
+
+      - name: Attach nscloud cache volumes
+        uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          path: |
+            ${{ env.ROOT_DIR }}/many
+            ${{ env.ROOT_DIR }}/large
+
+      - name: Generate large file (NSCLOUD)
+        id: gen_nscloud_large
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="$ROOT_DIR/large"
+          dd if=/dev/urandom of="$dir/large.bin" bs=1M count="$LARGE_SIZE_MB" status=none
+
+      - name: Generate many small files (NSCLOUD)
+        id: gen_nscloud_many
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="$ROOT_DIR/many"
+          for i in $(seq 1 "$SMALL_COUNT"); do
+            dd if=/dev/urandom of="$dir/file_$i.bin" bs="$SMALL_SIZE_BYTES" count=1 status=none
+          done
+
+      - name: Verify files
+        shell: bash
+        run: |
+          ls -lh "$ROOT_DIR/large"
+          ls -1 "$ROOT_DIR/many" | wc -l
+
+  wait:
+    name: Wait for nscloud cache to commit
+    needs: prime-nscloud-cache
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 60
+
+  large-restore-nscloud:
+    name: Restore large file from NSCLOUD
+    needs: wait
+    runs-on: namespace-profile-cache-test
+    steps:
+      - name: Attach nscloud cache volume
+        uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          path: ${{ env.ROOT_DIR }}/large
+
+      - name: Verify file
+        shell: bash
+        run: ls -lh "$ROOT_DIR/large"
+
+  many-restore-nscloud:
+    name: Restore many files from NSCLOUD
+    needs: wait
+    runs-on: namespace-profile-cache-test
+    steps:
+      - name: Attach nscloud cache volume
+        uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          path: ${{ env.ROOT_DIR }}/many
+
+      - name: Verify files count
+        shell: bash
+        run: ls -1 "$ROOT_DIR/many" | wc -l
+
+  # --------------------------------------------------------------------
+  # GHA Cache
+  # --------------------------------------------------------------------
+  prime-action-cache:
+    name: Prime ACTIONS cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare directories
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$ROOT_DIR/large" "$ROOT_DIR/many"
+
+      - name: Generate large file (ACTIONS)
+        id: gen_actions_large
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="$ROOT_DIR/large"
+          dd if=/dev/urandom of="$dir/large.bin" bs=1M count="$LARGE_SIZE_MB" status=none
+
+      - name: Cache large file (ACTIONS)
+        id: save_actions_large
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.ROOT_DIR }}/large
+          key: large-actions-${{ runner.os }}-${{ env.LARGE_SIZE_MB }}mb-${{ env.SALT }}
+
+      - name: Generate many small files (ACTIONS)
+        id: gen_actions_many
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="$ROOT_DIR/many"
+          for i in $(seq 1 "$SMALL_COUNT"); do
+            dd if=/dev/urandom of="$dir/file_$i.bin" bs="$SMALL_SIZE_BYTES" count=1 status=none
+          done
+
+      - name: Cache many small files (ACTIONS)
+        id: save_actions_many
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.ROOT_DIR }}/many
+          key: many-actions-${{ runner.os }}-${{ env.SMALL_COUNT }}x${{ env.SMALL_SIZE_BYTES }}-${{ env.SALT }}
+
+      - name: Verify files
+        shell: bash
+        run: |
+          ls -lh "$ROOT_DIR/large"
+          ls -1 "$ROOT_DIR/many" | wc -l
+
+  large-restore-actions:
+    name: Restore large file from ACTIONS
+    needs: prime-action-cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore ACTIONS cache (large)
+        id: restore_actions_large
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.ROOT_DIR }}/large
+          key: large-actions-${{ runner.os }}-${{ env.LARGE_SIZE_MB }}mb-${{ env.SALT }}
+
+      - name: Verify file
+        shell: bash
+        run: ls -lh "$ROOT_DIR/large"
+
+  many-restore-actions:
+    name: Restore many files from ACTIONS
+    needs: prime-action-cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore ACTIONS cache (many)
+        id: restore_actions_many
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.ROOT_DIR }}/many
+          key: many-actions-${{ runner.os }}-${{ env.SMALL_COUNT }}x${{ env.SMALL_SIZE_BYTES }}-${{ env.SALT }}
+
+      - name: Verify files count
+        shell: bash
+        run: ls -1 "$ROOT_DIR/many" | wc -l
