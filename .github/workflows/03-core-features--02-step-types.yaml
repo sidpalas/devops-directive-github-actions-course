@@ -12,7 +12,7 @@ jobs:
   say-hello-inline-python:
     runs-on: ubuntu-24.04
     steps:
-      - run: print("Hello from an inline python script in a GitHub Action Workflow!")
+      - run: print("Yo from an inline python script in a GitHub Action Workflow!")
         shell: python
 
   say-hello-action:
