@@ -1,0 +1,9 @@
+name: mycustom-workflow
+on: 
+  workflow_dispatch
+jobs:
+  helloworld:
+    runs-on: ubuntu-22.04
+    steps:
+    - run: echo "Hello from ayush bhoyar"
+      shell: sh
