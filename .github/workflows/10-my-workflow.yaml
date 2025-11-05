@@ -11,7 +11,8 @@ jobs:
     say-surf-in-python:
         runs-on: ubuntu-24.04
         steps:
-            - run: print('Hello Surfing')
+            - run: print("Hello Surfing")
+              shell: python
     say-surf-in-pwsh:
         runs-on: windows-latest
         steps:
