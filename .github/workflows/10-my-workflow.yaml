@@ -16,4 +16,4 @@ jobs:
     say-surf-in-pwsh:
         runs-on: windows-latest
         steps:
-            - run: Write-Host 'say-surf-in-pwsh'
+            - run: Write-Host 'say-surf-in-pwsh no shat'
