@@ -17,4 +17,4 @@ jobs:
         runs-on: windows-latest
         steps:
             - run: Write-Host 'say-surf-in-pwsh no shat'
-            - run: ls
+            - run: ls -la ; pwd; Get-Service
