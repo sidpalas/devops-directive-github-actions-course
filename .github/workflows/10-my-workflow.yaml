@@ -18,3 +18,9 @@ jobs:
         steps:
             - run: Write-Host 'say-surf-in-pwsh no shat'
             - run: ls -la ; pwd; Get-Service
+    say-surf-is-js:
+        runs-on: ubuntu-24.04
+        steps:
+            - uses: actions/hello-world-javascript-action
+              with:
+                  who-to-greet: 'Surf'
