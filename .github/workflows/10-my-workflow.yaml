@@ -1,0 +1,10 @@
+name: My Workflow
+
+on:
+    workflow_dispatch:
+
+jobs:
+    say_my_word:
+        runs-on: ubuntu-24.04
+        steps:
+            - run: echo "Go to Surfing"
