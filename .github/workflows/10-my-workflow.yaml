@@ -29,7 +29,10 @@ jobs:
             - say-surf-is-js
         steps:
             - run: Write-Host 'say-surf-in-pwsh no shat'
-            - run: $STEP_VAR
+            - run: |
+                  $STEP_VAR
+                  $WORKFLOW_VAR
+                  $JOB_VAR
             - run: |
                   echo "WORKFLOW_VAR: $WORKFLOW_VAR"   # visible
                   echo "JOB_VAR:      $JOB_VAR"        # visible
