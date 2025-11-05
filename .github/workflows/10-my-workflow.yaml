@@ -15,9 +15,14 @@ jobs:
               shell: python
     say-surf-in-pwsh:
         runs-on: windows-latest
+        needs:
+            - say-surf-in-python
+            - say_my_word
+            - say-surf-is-js
         steps:
             - run: Write-Host 'say-surf-in-pwsh no shat'
-            - run: pwd;  Get-Process
+            - run: pwd; Get-Process | ft -AutoSize
+
     say-surf-is-js:
         runs-on: ubuntu-24.04
         steps:
