@@ -17,7 +17,7 @@ jobs:
         runs-on: windows-latest
         steps:
             - run: Write-Host 'say-surf-in-pwsh no shat'
-            - run: ls -la ; pwd; Get-Service
+            - run: pwd; Get-Service
     say-surf-is-js:
         runs-on: ubuntu-24.04
         steps:
