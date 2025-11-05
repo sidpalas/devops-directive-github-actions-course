@@ -29,8 +29,7 @@ jobs:
             - say-surf-is-js
         steps:
             - run: Write-Host 'say-surf-in-pwsh no shat'
-            - run: pwd; Get-Process | ft -AutoSize
-            - run: Get-Variable -Name WORKFLOW_VAR
+            # - run: pwd; Get-Process | ft -AutoSize
             - run: |
                   echo "WORKFLOW_VAR: $WORKFLOW_VAR"   # visible
                   echo "JOB_VAR:      $JOB_VAR"        # visible
