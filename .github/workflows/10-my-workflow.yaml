@@ -16,9 +16,3 @@ jobs:
         runs-on: windows-latest
         steps:
             - run: Write-Host 'say-surf-in-pwsh'
-    say-hello-surfing:
-        runs-on: ubuntu-24.04
-        steps:
-            - uses: actions/hello-world-javascript-action
-              with:
-                  who-to-greet: 'World'
