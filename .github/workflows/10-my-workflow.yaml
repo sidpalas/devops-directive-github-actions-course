@@ -22,14 +22,14 @@ jobs:
     say-surf-in-pwsh:
         runs-on: windows-latest
         env:
-            STEP_VAR: I_AM_STEP_SCOPED
+            STEP_VAR: I_AM_STEP_SCOPED @ windows
         needs:
             - say-surf-in-python
             - say_my_word
             - say-surf-is-js
         steps:
             - run: Write-Host 'say-surf-in-pwsh no shat'
-            # - run: pwd; Get-Process | ft -AutoSize
+            - run: $STEP_VAR
             - run: |
                   echo "WORKFLOW_VAR: $WORKFLOW_VAR"   # visible
                   echo "JOB_VAR:      $JOB_VAR"        # visible
