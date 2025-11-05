@@ -5,13 +5,15 @@ on:
     push:
         branches:
             - 'example-branch/*'
+env:
+    WORKFLOW_VAR: I_AM_WORKFLOW_SCOPED
+
 jobs:
     say_my_word:
         runs-on: ubuntu-24.04
         steps:
             - run: echo "Go to Surfing"
-        env:
-            STEP_VAR: I_AM_STEP_SCOPED
+
     say-surf-in-python:
         runs-on: ubuntu-24.04
         steps:
@@ -19,6 +21,8 @@ jobs:
               shell: python
     say-surf-in-pwsh:
         runs-on: windows-latest
+        env:
+            STEP_VAR: I_AM_STEP_SCOPED
         needs:
             - say-surf-in-python
             - say_my_word
@@ -26,7 +30,11 @@ jobs:
         steps:
             - run: Write-Host 'say-surf-in-pwsh no shat'
             - run: pwd; Get-Process | ft -AutoSize
-            - run: Get-Variable -Name STEP_VAR
+            - run: Get-Variable -Name WORKFLOW_VAR
+            - run: |
+                  echo "WORKFLOW_VAR: $WORKFLOW_VAR"   # visible
+                  echo "JOB_VAR:      $JOB_VAR"        # visible
+                  echo "STEP_VAR:     $STEP_VAR"       # visible only here
 
     say-surf-is-js:
         runs-on: ubuntu-24.04
