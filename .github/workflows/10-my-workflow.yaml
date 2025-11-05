@@ -10,6 +10,8 @@ jobs:
         runs-on: ubuntu-24.04
         steps:
             - run: echo "Go to Surfing"
+        env:
+            STEP_VAR: I_AM_STEP_SCOPED
     say-surf-in-python:
         runs-on: ubuntu-24.04
         steps:
@@ -24,6 +26,7 @@ jobs:
         steps:
             - run: Write-Host 'say-surf-in-pwsh no shat'
             - run: pwd; Get-Process | ft -AutoSize
+            - run: Get-Variable -Name STEP_VAR
 
     say-surf-is-js:
         runs-on: ubuntu-24.04
