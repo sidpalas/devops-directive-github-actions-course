@@ -48,7 +48,8 @@ jobs:
               id: generate-volume
               run: |
                   $volume =  (Get-Process  | select -First 1).Id
-                  $volume
+                  $volume | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding UTF8 -Append
+
     say-surf-is-js:
         runs-on: ubuntu-24.04
         steps:
