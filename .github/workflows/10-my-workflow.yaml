@@ -46,7 +46,8 @@ jobs:
             - name: set var
               id: generate-volume
               run: |
-                  $volume =  Get-Volume
+                  $volume =  Get-Process
+                  $volume
     say-surf-is-js:
         runs-on: ubuntu-24.04
         steps:
@@ -67,4 +68,5 @@ jobs:
 
             - name: Print Variables
               run: |
-                  ${{ needs.say-surf-in-pwsh.outputs.volume }}
+                  $var1 = "${{ needs.say-surf-in-pwsh.outputs.volume }}"
+                  $var1
