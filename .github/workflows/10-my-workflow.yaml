@@ -48,3 +48,19 @@ jobs:
               # - uses: actions/hello-world-javascript-action@v1 # This would work, but it would be less stable and less secure:
               with:
                   who-to-greet: 'from an action in the GitHub Action marketplace! 👋'
+
+    print-var-in-pwsh:
+        runs-on: windows-latest
+        needs:
+            - say-surf-in-python
+            - say_my_word
+            - say-surf-is-js
+        steps:
+            - name: Print Github $Vars
+              run: |
+                  $GITHUB_ENV
+                  $GITHUB_OUTPUT
+
+            - name: Print Variables
+              run: |
+                  Get-Variable
