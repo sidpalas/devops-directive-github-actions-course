@@ -47,9 +47,15 @@ jobs:
             - name: set var
               id: generate-volume
               run: |
-                  $volume =  (Get-Process  | select -First 1).Id
-                  $volume | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding UTF8 -Append
+                  $volume_value = (Get-Process | Select-Object -First 1).Id
 
+                  # 2. ❗ 關鍵修正：將 'key=value' 格式的字串寫入 $GITHUB_OUTPUT
+                  $output_line = "volume=$volume_value"
+
+                  # 3. 使用 Out-File 將格式正確的字串寫入 $GITHUB_OUTPUT 檔案
+                  $output_line | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding UTF8 -Append
+
+                  Write-Host "成功寫入 $env:GITHUB_OUTPUT: $output_line"
     say-surf-is-js:
         runs-on: ubuntu-24.04
         steps:
