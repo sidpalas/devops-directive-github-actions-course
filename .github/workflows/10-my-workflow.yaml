@@ -19,8 +19,11 @@ jobs:
         steps:
             - run: print("Hello Surfing")
               shell: python
+
     say-surf-in-pwsh:
         runs-on: windows-latest
+        outputs:
+            volume: ${{ steps.generate-volume.outputs.volume }}
         env:
             JOB_VAR: I_AM_JOB_1_SCOPED
         needs:
@@ -40,7 +43,10 @@ jobs:
                   echo "WORKFLOW_VAR: $WORKFLOW_VAR"   # visible
                   echo "JOB_VAR:      $JOB_VAR"        # visible
                   echo "STEP_VAR:     $STEP_VAR"       # visible only here
-
+            - name: set var
+              id: generate-volume
+              run: |
+                  $volume =  Get-Volume
     say-surf-is-js:
         runs-on: ubuntu-24.04
         steps:
@@ -52,15 +58,13 @@ jobs:
     print-var-in-pwsh:
         runs-on: windows-latest
         needs:
-            - say-surf-in-python
-            - say_my_word
-            - say-surf-is-js
+            - say-surf-in-pwsh
         steps:
-            - name: Print Github $Vars
+            - name: Print PWSH $Vars
               run: |
                   $GITHUB_ENV
                   $GITHUB_OUTPUT
 
             - name: Print Variables
               run: |
-                  Get-Variable
+                  ${{ needs.say-surf-in-pwsh.outputs.volume }}"
