@@ -67,4 +67,4 @@ jobs:
 
             - name: Print Variables
               run: |
-                  ${{ needs.say-surf-in-pwsh.outputs.volume }}"
+                  ${{ needs.say-surf-in-pwsh.outputs.volume }}
