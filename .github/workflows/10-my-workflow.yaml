@@ -1,10 +1,10 @@
 name: My Workflow
 
 on:
-    workflow_dispatch:
-        # push:
-        #     branches:
-        #         - 'example-branch/*'
+    # workflow_dispatch:
+    push:
+        branches:
+            - 'example-branch/*'
 env:
     WORKFLOW_VAR: I_AM_WORKFLOW_SCOPED
 
