@@ -1,0 +1,20 @@
+name: Workflow Iteration (Debug Env Vars)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  # To see the debug logging in action:
+  # 1. Run with no modified settings (default)
+  # 2. Set ACTIONS_STEP_DEBUG repo VAR or SECRET to true
+  #    └─> (This will show the debug log defined in the step)
+  # 3. Set ACTIONS_RUNNER_DEBUG repo VAR or SECRET to true
+  #    └─> (This will show the debug logs from the runner)
+  log-at-various-levels:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Echo some things
+        run: |
+          echo "::debug::This is a debug message"
+          echo "::info::This is an info message"
+          echo "::warning::This is an warning message"

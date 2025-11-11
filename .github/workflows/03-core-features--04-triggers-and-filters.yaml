@@ -1,0 +1,38 @@
+name: Triggering Events
+# https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
+
+on:
+  ### https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#push
+  push:
+    branches:
+      # Filter patterns cheat sheet:
+      #   https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+      - "example-branch/*"
+
+  ### https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#pull_request
+  pull_request:
+    ## The default is to trigger on the following types of events:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      # include markdown files
+      - "03-core-features/filters/*.md"
+      # Exclude txt files
+      - "!03-core-features/filters/*.txt"
+
+  ### https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule
+  # schedule:
+  #   - cron: "0 0 * * *" # Midnight UTC
+
+  ## Manual Trigger
+  workflow_dispatch:
+jobs:
+  echo-event:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Dump full event JSON
+        run: |
+          echo "=== $GITHUB_EVENT_NAME payload ==="
+          cat "$GITHUB_EVENT_PATH"

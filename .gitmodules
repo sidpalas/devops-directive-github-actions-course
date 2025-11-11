@@ -1,0 +1,15 @@
+[submodule "06-authoring-actions/javascript-actions/javascript-action-with-build"]
+	path = 06-authoring-actions/javascript-actions/javascript-action-with-build
+	url = https://github.com/sidpalas/javascript-action-with-build.git
+[submodule "06-authoring-actions/javascript-actions/typescript-action-with-build"]
+	path = 06-authoring-actions/javascript-actions/typescript-action-with-build
+	url = https://github.com/sidpalas/typescript-action-with-build.git
+[submodule "06-authoring-actions/container-actions/bash-container-action"]
+	path = 06-authoring-actions/container-actions/bash-container-action
+	url = https://github.com/sidpalas/bash-container-action.git
+[submodule "06-authoring-actions/container-actions/shell-container-action"]
+	path = 06-authoring-actions/container-actions/shell-container-action
+	url = https://github.com/sidpalas/shell-container-action.git
+[submodule "capstone"]
+	path = capstone
+	url = git@github.com:sidpalas/capstone.git

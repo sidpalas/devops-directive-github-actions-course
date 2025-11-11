@@ -1,0 +1,65 @@
+name: Caching
+on:
+  workflow_dispatch:
+
+jobs:
+  # ──────────────────────────────────────────────
+  # 2) Generic cache with actions/cache
+  # ──────────────────────────────────────────────
+  actions-cache:
+    name: Prime demo cache
+    runs-on: ubuntu-24.04
+    steps:
+      # Attempt to restore (misses on first run)
+      - name: Restore cache
+        id: demo-cache
+        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4 # v4.2.4
+        with:
+          path: demo-cache
+          # For info on constructing an appropriate cache key see:
+          # https://github.com/actions/cache?tab=readme-ov-file#creating-a-cache-key
+          key: demo-cache-v1
+
+      # Populate directory only on miss
+      - name: Populate cache directory
+        if: steps.demo-cache.outputs.cache-hit != 'true'
+        run: |
+          echo "Cache miss – generating contents"
+          mkdir -p demo-cache
+          date > demo-cache/timestamp.txt
+
+      # Save cache only if we generated new content
+      - name: Save cache
+        if: steps.demo-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4 # v4.2.4
+        with:
+          path: demo-cache
+          key: demo-cache-v1
+
+      - name: Verify cache status
+        run: |
+          echo "cache-hit? -> ${{ steps.demo-cache.outputs.cache-hit }}"
+          cat demo-cache/timestamp.txt
+
+  # ──────────────────────────────────────────────
+  # 3) Cache via actions/setup-node
+  # ──────────────────────────────────────────────
+  node-cache:
+    name: npm dependency cache (setup-node)
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: 04-advanced-features/caching/minimal-node-project
+
+    steps:
+      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+      - uses: actions/setup-node@d7a11313b581b306c961b506cfc8971208bb03f6 # v4.4.0
+        with:
+          node-version: 20
+          cache: npm
+          # Point cache action at the specific lock-file path
+          cache-dependency-path: 04-advanced-features/caching/minimal-node-project/package-lock.json
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+      - name: List first few modules
+        run: ls -R node_modules | head

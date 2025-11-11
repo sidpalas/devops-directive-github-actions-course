@@ -1,0 +1,21 @@
+name: 'The name of your action here'
+description: 'Provide a description here'
+author: 'Your name or organization here'
+
+# Define your inputs here.
+inputs:
+  who-to-greet:
+    description: 'Your input description here'
+    required: true
+    default: 'World'
+
+# Define your outputs here.
+outputs:
+  greeting:
+    description: 'Your output description here'
+
+runs:
+  using: docker
+  image: sidpalas/shell-container-action:v0.0.1 # specifying a public image allows you to skip the build
+  env:
+    INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}

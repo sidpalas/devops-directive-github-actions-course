@@ -1,0 +1,37 @@
+name: Reusable Workflow Source
+
+on:
+  workflow_call:
+    inputs:
+      foo:
+        required: true
+        type: string
+      environment:
+        description: "Target GitHub environment name (e.g. staging, production)"
+        required: true
+        type: string
+    secrets:
+      # NOTE: You can only pass repo/org secrets here, not environment secrets
+      EXAMPLE_REPOSITORY_SECRET:
+        required: true
+
+jobs:
+  reusable-workflow-job:
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: job in reusable workflow
+        env:
+          # explicit input
+          FOO: ${{ inputs.foo }}
+          # from repo/org level
+          EXAMPLE_REPOSITORY_SECRET: ${{ secrets.EXAMPLE_REPOSITORY_SECRET }}
+          # from the **environment** selected above
+          EXAMPLE_ENVIRONMENT_SECRET: ${{ secrets.EXAMPLE_ENVIRONMENT_SECRET }}
+          EXAMPLE_ENVIRONMENT_VARIABLE: ${{ vars.EXAMPLE_ENVIRONMENT_VARIABLE }}
+        run: |
+          echo "FOO                           = $FOO"
+          echo "EXAMPLE_REPOSITORY_SECRET     = $EXAMPLE_REPOSITORY_SECRET"
+          echo "EXAMPLE_ENVIRONMENT_SECRET    = $EXAMPLE_ENVIRONMENT_SECRET"
+          echo "EXAMPLE_ENVIRONMENT_VARIABLE  = $EXAMPLE_ENVIRONMENT_VARIABLE"
