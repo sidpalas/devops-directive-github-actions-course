@@ -1,0 +1,17 @@
+version: "3"
+
+tasks:
+  # More examples can be found in the capstone project
+  act-trigger-hello-world:
+    cmds:
+      - |
+        act workflow_dispatch \
+          --container-architecture linux/amd64 \
+          -P ubuntu-24.04=node:16-bullseye-slim \
+          --directory ../.. \
+          -W '.github/workflows/08-developer-experience--01-externalize-logic.yaml'
+
+  hello-world-task:
+    cmds:
+      - |
+        echo "Hello from a Taskfile task called from a GitHub Action Workflow!"

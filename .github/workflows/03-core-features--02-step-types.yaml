@@ -18,7 +18,7 @@ jobs:
   say-hello-action:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/hello-world-javascript-action@e76147da8e5c81eaf017dede5645551d4b94427b # v1.2.3
+      - uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d # v1.1
         # - uses: actions/hello-world-javascript-action@v1 # This would work, but it would be less stable and less secure:
         with:
           who-to-greet: "from an action in the GitHub Action marketplace! 👋"

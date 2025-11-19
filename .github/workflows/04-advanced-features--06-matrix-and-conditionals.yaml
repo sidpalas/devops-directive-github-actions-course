@@ -18,6 +18,7 @@ jobs:
         exclude:
           - number: 1
             letter: c
+    timeout-minutes: 5
 
     steps:
       # Step 1 – always runs
@@ -36,3 +37,4 @@ jobs:
     steps:
       - name: Sleep (to give time to be cancelled)
         run: sleep 100
+        timeout-minutes: 2

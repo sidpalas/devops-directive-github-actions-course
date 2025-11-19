@@ -1,0 +1,30 @@
+name: Workflow Iteration (Externalize Logic)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  # ❌ Avoid inline bash for anything except trivial commands
+  say-hello-inline-bash:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Echo Hello
+        run: |
+          echo "Hello from an inline bash script in a GitHub Action Workflow!"
+
+  # ✅ Instead, move the logic outside of the workflow!
+  say-hello-external-task:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+      - name: Install Task
+        uses: supplypike/setup-bin@8e3f88b4f143d9b5c3497f0fc12d45c83c123787 # v4.0.1
+        with:
+          uri: "https://github.com/go-task/task/releases/download/v3.44.1/task_linux_amd64.tar.gz"
+          name: task
+          version: v3.44.1
+      - name: Echo Hello
+        working-directory: ./08-developer-experience/workflows
+        run: |
+          task hello-world-task

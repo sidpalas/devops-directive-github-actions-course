@@ -1,0 +1,258 @@
+name: Namespace Cache Volumes Benchmark
+
+on:
+  workflow_dispatch:
+
+env:
+  ROOT_DIR: bench
+  LARGE_SIZE_MB: "2048"
+  SMALL_COUNT: "100000"
+  SMALL_SIZE_BYTES: "4096"
+  SALT: "v4"
+
+jobs:
+  # ───────────────────────────────────────────────────────────────
+  # Namespace cache – LARGE
+  # ───────────────────────────────────────────────────────────────
+  nscloud-cache-large:
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x16-with-cache
+      - nscloud-cache-tag-large-file
+      - nscloud-cache-size-20gb
+    env:
+      DIR: large
+    outputs: # ← expose metrics for downstream job
+      files: ${{ steps.check.outputs.files }}
+      bytes: ${{ steps.check.outputs.bytes }}
+      generated: ${{ steps.generate.outcome }}
+    steps:
+      - name: Prepare directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$ROOT_DIR/$DIR"
+
+      - name: Attach nscloud cache volume
+        uses: namespacelabs/nscloud-cache-action@a289cf5d2fcd6874376aa92f0ef7f99dc923592a # v1.2.17
+        with:
+          path: ${{ env.ROOT_DIR }}/${{ env.DIR }}
+
+      - name: Check if files exist
+        id: check-before
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="$ROOT_DIR/$DIR"
+          files=$(find "$dir" -type f | wc -l || true)
+          bytes=$(du -s --block-size=1 "$dir" | cut -f1 || echo 0)
+          echo "files=$files"  >> "$GITHUB_OUTPUT"
+          echo "bytes=$bytes" >> "$GITHUB_OUTPUT"
+          echo "::group::First 20 entries in $dir"
+          ls -lh "$dir" | head -20 || true
+          echo "::endgroup::"
+          echo "Check results: $files file(s), $bytes bytes"
+
+      - name: Generate large file (NSCLOUD)
+        id: generate
+        if: ${{ steps.check-before.outputs.files == '0' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          dd if=/dev/urandom of="$ROOT_DIR/$DIR/large.bin" bs=1M count="$LARGE_SIZE_MB" status=none
+
+      - name: Check if files exist
+        id: check
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="$ROOT_DIR/$DIR"
+          files=$(find "$dir" -type f | wc -l || true)
+          bytes=$(du -s --block-size=1 "$dir" | cut -f1 || echo 0)
+          echo "files=$files"  >> "$GITHUB_OUTPUT"
+          echo "bytes=$bytes" >> "$GITHUB_OUTPUT"
+
+  # ───────────────────────────────────────────────────────────────
+  # Namespace cache – MANY
+  # ───────────────────────────────────────────────────────────────
+  nscloud-cache-many:
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x16-with-cache
+      - nscloud-cache-tag-many-files
+      - nscloud-cache-size-20gb
+    env:
+      DIR: many
+    outputs:
+      files: ${{ steps.check.outputs.files }}
+      bytes: ${{ steps.check.outputs.bytes }}
+      generated: ${{ steps.generate.outcome }}
+    steps:
+      - name: Prepare directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$ROOT_DIR/$DIR"
+
+      - name: Attach nscloud cache volume
+        uses: namespacelabs/nscloud-cache-action@a289cf5d2fcd6874376aa92f0ef7f99dc923592a # v1.2.17
+        with:
+          path: ${{ env.ROOT_DIR }}/${{ env.DIR }}
+
+      - name: Check if files exist before
+        id: check-before
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="$ROOT_DIR/$DIR"
+          files=$(find "$dir" -type f | wc -l || true)
+          bytes=$(du -s --block-size=1 "$dir" | cut -f1 || echo 0)
+          echo "files=$files"  >> "$GITHUB_OUTPUT"
+          echo "bytes=$bytes" >> "$GITHUB_OUTPUT"
+          echo "::group::First 20 entries in $dir"
+          ls -lh "$dir" | head -20 || true
+          echo "::endgroup::"
+          echo "Check results: $files file(s), $bytes bytes"
+
+      - name: Generate many small files (NSCLOUD)
+        id: generate
+        if: ${{ steps.check-before.outputs.files != env.SMALL_COUNT }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 "$SMALL_COUNT"); do
+            dd if=/dev/urandom of="$ROOT_DIR/$DIR/file_$i.bin" bs="$SMALL_SIZE_BYTES" count=1 status=none
+          done
+
+      - name: Check if files exist after
+        id: check
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="$ROOT_DIR/$DIR"
+          files=$(find "$dir" -type f | wc -l || true)
+          bytes=$(du -s --block-size=1 "$dir" | cut -f1 || echo 0)
+          echo "files=$files"  >> "$GITHUB_OUTPUT"
+          echo "bytes=$bytes" >> "$GITHUB_OUTPUT"
+
+  # ───────────────────────────────────────────────────────────────
+  # GitHub Actions cache – LARGE
+  # ───────────────────────────────────────────────────────────────
+  actions-cache-large:
+    runs-on: ubuntu-24.04
+    env:
+      DIR: large
+    outputs:
+      files: ${{ steps.check.outputs.files }}
+      bytes: ${{ steps.check.outputs.bytes }}
+      generated: ${{ steps.generate.outcome }}
+    steps:
+      - name: Prepare directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$ROOT_DIR/$DIR"
+
+      - name: Cache directory (ACTIONS)
+        id: cache
+        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4 # v4.2.4
+        with:
+          path: ${{ env.ROOT_DIR }}/${{ env.DIR }}
+          key: large-actions-${{ runner.os }}-${{ env.LARGE_SIZE_MB }}mb-${{ env.SALT }}
+
+      - name: Check if files exist
+        id: check
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="$ROOT_DIR/$DIR"
+          files=$(find "$dir" -type f | wc -l || true)
+          bytes=$(du -s --block-size=1 "$dir" | cut -f1 || echo 0)
+          echo "files=$files"  >> "$GITHUB_OUTPUT"
+          echo "bytes=$bytes" >> "$GITHUB_OUTPUT"
+          echo "::group::First 20 entries in $dir"
+          ls -lh "$dir" | head -20 || true
+          echo "::endgroup::"
+          echo "Check results: $files file(s), $bytes bytes"
+
+      - name: Generate large file (ACTIONS)
+        id: generate
+        if: ${{ steps.check.outputs.files == '0' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          dd if=/dev/urandom of="$ROOT_DIR/$DIR/large.bin" bs=1M count="$LARGE_SIZE_MB" status=none
+
+  # ───────────────────────────────────────────────────────────────
+  # GitHub Actions cache – MANY
+  # ───────────────────────────────────────────────────────────────
+  actions-cache-many:
+    runs-on: ubuntu-24.04
+    env:
+      DIR: many
+    outputs:
+      files: ${{ steps.check.outputs.files }}
+      bytes: ${{ steps.check.outputs.bytes }}
+      generated: ${{ steps.generate.outcome }}
+    steps:
+      - name: Prepare directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$ROOT_DIR/$DIR"
+
+      - name: Cache directory (ACTIONS)
+        id: cache
+        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4 # v4.2.4
+        with:
+          path: ${{ env.ROOT_DIR }}/${{ env.DIR }}
+          key: many-actions-${{ runner.os }}-${{ env.SMALL_COUNT }}x${{ env.SMALL_SIZE_BYTES }}-${{ env.SALT }}
+
+      - name: Check if files exist
+        id: check
+        shell: bash
+        run: |
+          set -euo pipefail
+          dir="$ROOT_DIR/$DIR"
+          files=$(find "$dir" -type f | wc -l || true)
+          bytes=$(du -s --block-size=1 "$dir" | cut -f1 || echo 0)
+          echo "files=$files"  >> "$GITHUB_OUTPUT"
+          echo "bytes=$bytes" >> "$GITHUB_OUTPUT"
+          echo "::group::First 20 entries in $dir"
+          ls -lh "$dir" | head -20 || true
+          echo "::endgroup::"
+          echo "Check results: $files file(s), $bytes bytes"
+
+      - name: Generate many small files (ACTIONS)
+        id: generate
+        if: ${{ steps.check.outputs.files != env.SMALL_COUNT }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 "$SMALL_COUNT"); do
+            dd if=/dev/urandom of="$ROOT_DIR/$DIR/file_$i.bin" bs="$SMALL_SIZE_BYTES" count=1 status=none
+          done
+
+  # ───────────────────────────────────────────────────────────────
+  # Aggregate summary
+  # ───────────────────────────────────────────────────────────────
+  aggregate-summary:
+    name: Consolidated cache report
+    runs-on: ubuntu-24.04
+    needs:
+      - nscloud-cache-large
+      - nscloud-cache-many
+      - actions-cache-large
+      - actions-cache-many
+    steps:
+      - name: Publish overall summary
+        shell: bash
+        run: |
+          {
+            echo "## Cache Benchmark – consolidated report"
+            echo ""
+            echo "| Job | Files | Bytes | Cache Hit? |"
+            echo "| --- | ----: | ----: | --------- |"
+            echo "| nscloud-cache-large | ${{ needs.nscloud-cache-large.outputs.files }} | ${{ needs.nscloud-cache-large.outputs.bytes }} | ${{ needs.nscloud-cache-large.outputs.generated == 'skipped' }} |"
+            echo "| nscloud-cache-many  | ${{ needs.nscloud-cache-many.outputs.files }}  | ${{ needs.nscloud-cache-many.outputs.bytes }}  | ${{ needs.nscloud-cache-many.outputs.generated == 'skipped' }}  |"
+            echo "| actions-cache-large | ${{ needs.actions-cache-large.outputs.files }} | ${{ needs.actions-cache-large.outputs.bytes }} | ${{ needs.actions-cache-large.outputs.generated == 'skipped' }} |"
+            echo "| actions-cache-many  | ${{ needs.actions-cache-many.outputs.files }}  | ${{ needs.actions-cache-many.outputs.bytes }}  | ${{ needs.actions-cache-many.outputs.generated == 'skipped' }}  |"
+          } >> "$GITHUB_STEP_SUMMARY"

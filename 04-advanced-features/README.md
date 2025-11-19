@@ -16,5 +16,10 @@ This module covers several advanced capabilities of GitHub Actions. Each topic i
   - contrasts static AWS credentials with OIDC-based authentication
 - **Matrix & Conditionals** – [`04-advanced-features--06-matrix-and-conditionals.yaml`](../.github/workflows/04-advanced-features--06-matrix-and-conditionals.yaml)
   - runs a job across a two-dimensional matrix and skips steps based on conditions
+- **Dynamic Matrix** – [`04-advanced-features--07-dynamic-matrix.yaml`](../.github/workflows/04-advanced-features--07-dynamic-matrix.yaml)
+  - generates a dynamic set of jobs to be run using the matrix strategy
+- **Workflow Commands**
+[`04-advanced-features--08-workflow-commands.yaml`](../.github/workflows/04-advanced-features--08-workflow-commands.yaml)
+  - demonstrates specially formatted instructions that enable communication with the Github Action runner to control the workflow's behavior
 
 The caching example also includes a minimal Node project in [`caching/minimal-node-project`](./caching/minimal-node-project).

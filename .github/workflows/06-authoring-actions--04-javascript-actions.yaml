@@ -8,7 +8,7 @@ jobs:
     name: Javascript action (no build)
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
       - name: Run javascript action
         uses: ./06-authoring-actions/javascript-actions/javascript-action-no-build
         id: hello
@@ -17,12 +17,12 @@ jobs:
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
 
-  typescript-with-build:
+  javascript-with-build:
     runs-on: ubuntu-latest
     name: Javascript action (with build)
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
         with:
           submodules: true
       - name: Run javascript action
@@ -38,7 +38,7 @@ jobs:
     name: Typescript action
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
         with:
           submodules: true
       - name: Run typescript action
