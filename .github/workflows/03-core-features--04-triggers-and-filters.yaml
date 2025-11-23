@@ -1,4 +1,4 @@
-name: Triggering Events
+name: 03-core-features--04-triggers-and-filters
 # https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
 
 on:
