@@ -1,0 +1,8 @@
+{
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "files.associations": {
+        "**/.github/workflows/*.{yml,yaml}": "yaml",
+        "**/Taskfile.{yml,yaml}": "yaml",
+    }
+}

@@ -1,1 +1,6 @@
 .DS_store
+.venv/
+.nix/
+.devbox/
+*.egg-info/
+__pycache__/
