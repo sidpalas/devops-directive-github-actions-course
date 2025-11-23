@@ -1,4 +1,4 @@
-name: Workflows, Jobs, and Steps
+name: 03-core-features--03-workflows-jobs-steps
 
 on:
   workflow_dispatch:
@@ -24,6 +24,7 @@ jobs:
   job-4:
     runs-on: ubuntu-24.04
     needs:
+      - job-2
       - job-3
     steps:
       - run: echo "...to form a directed acyclic graph (DAG)"
