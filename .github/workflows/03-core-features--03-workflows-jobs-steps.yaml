@@ -24,7 +24,6 @@ jobs:
   job-4:
     runs-on: ubuntu-24.04
     needs:
-      - job-2
       - job-3
     steps:
       - run: echo "...to form a directed acyclic graph (DAG)"
