@@ -1,4 +1,4 @@
-name: Workflows, Jobs, and Steps
+name: srinivas test hello world
 
 on:
   workflow_dispatch:
