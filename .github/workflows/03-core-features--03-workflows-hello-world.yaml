@@ -1,0 +1,20 @@
+name: Workflows, Jobs, and Steps
+
+on:
+  workflow_dispatch:
+jobs:
+  job-say-hello-inline-bash:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "Hello from inline bash script in github action workflow"
+  job-say-hello-inline-python:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: print("Hello from inline python script in github action workflow")
+        shell: python
+  job-external-action:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/hello-world-javascript-action@v1
+        with:
+          who-to-greet: 'External Action github action marketplace'
