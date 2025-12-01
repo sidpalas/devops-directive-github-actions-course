@@ -1,0 +1,28 @@
+name: Testing Passing data workflow
+
+on:
+  pull_request: 
+    types: 
+      - opened
+      - reopened
+
+jobs:
+  testing-passing-data:
+    runs-on: ubuntu-18.04
+
+    outputs:
+      test: ${{ steps.generate-var.outputs.test}}     
+
+    steps:
+      - name : generate and export test
+        id: generate-var
+        run: |
+          test=Abhay
+
+          # 1) Set up the test variable
+          echo "foo=${foo}" >> "$GITHUB_OUTPUT"
+
+      - name: Inspect the value inside
+        run: |
+          echo "test: ${{steps.generate-var.outputs.test}}"
+          
