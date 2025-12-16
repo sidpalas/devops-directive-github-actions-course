@@ -16,6 +16,8 @@ on:
       - opened
       - synchronize
       - reopened
+    branches:
+      - "main"
     paths:
       # include markdown files
       - "03-core-features/filters/*.md"
