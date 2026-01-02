@@ -18,7 +18,7 @@ jobs:
           echo "foo=${foo}" >> "$GITHUB_OUTPUT"
 
           # 2) Job-scoped environment variable
-          echo "FOO=${foo}" >> "$GITHUB_ENV"
+          echo "FOO2=${foo}" >> "$GITHUB_ENV"
 
       - name: Inspect values inside producer
         run: |
