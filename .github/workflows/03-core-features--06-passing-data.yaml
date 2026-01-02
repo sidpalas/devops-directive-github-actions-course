@@ -12,7 +12,7 @@ jobs:
       - name: Generate and export foo
         id: generate-foo
         run: |
-          foo=bar
+          foo=bar2
 
           # 1) Step output (for job output)
           echo "foo=${foo}" >> "$GITHUB_OUTPUT"
