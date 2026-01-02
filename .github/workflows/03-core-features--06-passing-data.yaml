@@ -16,7 +16,7 @@ jobs:
 
           # 1) Step output (for job output)
           echo "foo=${foo}" >> "$GITHUB_OUTPUT"
-
+          foo=barbar
           # 2) Job-scoped environment variable
           echo "FOO2=${foo}" >> "$GITHUB_ENV"
 
