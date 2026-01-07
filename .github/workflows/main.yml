@@ -21,4 +21,4 @@ jobs:
 
         - name: "Run a one-line script"
           run: echo from job2 ${ { steps.checkout.outputs.foo } }
-          run : echo from job1 ${ { needs.job1.outputs.foo } }
+               echo from job1 ${ { needs.job1.outputs.foo } }
