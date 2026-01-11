@@ -1,0 +1,13 @@
+name: Test Worfkflow
+
+on:
+  pull_request: 
+
+jobs:
+  my-test-job:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "Hey there! :)"
+      - uses: actions/checkout@v6
+      - run: pwd
+      - run: ls -la
