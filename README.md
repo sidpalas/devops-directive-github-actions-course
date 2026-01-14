@@ -4,7 +4,7 @@ This is the companion repo to: [GitHub Actions: Beginner to Pro](https://courses
 
 [![](./readme-assets/thumbnail-yt.png)](https://youtu.be/Xwpi0ITkL3U)
 
-## 🙌 Sponsored by Namespace Labs
+## 🙌 Sponsored by Namespace Labs  
 
 This course is made possible thanks to [namespace.so](https://namespace.so/?utm_source=devopsdirective), the best way level up your software build and developer workflows!
 
