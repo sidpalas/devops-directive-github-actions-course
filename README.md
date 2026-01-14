@@ -27,7 +27,7 @@ This course is made possible thanks to [namespace.so](https://namespace.so/?utm_
 - **Best Practices:** performance tuning, maintainability, and security.
 - **Capstone Project:** apply everything in a hands-on final exercise.
 
-## Development Environment Setup  
+## Development Environment Setup     
 
 1. **Clone this repository (including submodules)**  
 ```bash
