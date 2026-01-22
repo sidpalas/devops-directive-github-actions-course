@@ -15,3 +15,5 @@ jobs:
     steps:
       - run: print("Hello world")
         shell: python
+    needs:
+    - say-hello-inline-bash
