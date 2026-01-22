@@ -2,7 +2,7 @@ name: Hello World
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
       - "main"
 jobs:
