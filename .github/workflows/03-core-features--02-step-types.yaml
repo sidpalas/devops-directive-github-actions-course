@@ -4,6 +4,11 @@ on:
   workflow_dispatch:
 
 jobs:
+  печать-Моны-Лизы:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: curl -s https://asciiart.website/ascii/art/mona_lisa.txt
+      
   docker-hello-world-run:
     runs-on: ubuntu-24.04
     steps:
