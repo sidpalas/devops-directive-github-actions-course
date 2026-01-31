@@ -4,6 +4,11 @@ on:
   workflow_dispatch:
 
 jobs:
+  docker-hello-world-run:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: docker run hello-world
+      
   say-hello-inline-bash:
     runs-on: ubuntu-24.04
     steps:
