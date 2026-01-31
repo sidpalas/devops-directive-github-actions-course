@@ -12,24 +12,28 @@ jobs:
       
   job-2:
     runs-on: ubuntu-24.04
+    needs: job-1
     steps:
       - run: echo "${{github.job}}"
 
       
   job-3:
     runs-on: ubuntu-24.04
+    needs: job-2
     steps:
       - run: echo "${{github.job}}"
 
       
   job-4:
     runs-on: ubuntu-24.04
+    needs: job-3
     steps:
       - run: echo "${{github.job}}"
 
       
   job-5:
     runs-on: ubuntu-24.04
+    needs: job-4
     steps:
       - run: echo "${{github.job}}"
 
