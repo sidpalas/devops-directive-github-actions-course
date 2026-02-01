@@ -12,7 +12,6 @@ jobs:
       
   job-2:
     runs-on: ubuntu-24.04
-    needs: job-1
     steps:
       - run: echo "${{github.job}}"
 
@@ -35,7 +34,6 @@ jobs:
     runs-on: ubuntu-24.04
     needs: 
       - job-4
-      - job-1
     steps:
       - run: echo "${{github.job}}"
 
