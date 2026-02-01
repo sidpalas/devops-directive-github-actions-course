@@ -18,14 +18,15 @@ jobs:
       
   job-3:
     runs-on: ubuntu-24.04
-    needs: job-2
+    needs: 
+      - job-2
+      - job-1
     steps:
       - run: echo "${{github.job}}"
 
       
   job-4:
     runs-on: ubuntu-24.04
-    needs: job-3
     steps:
       - run: echo "${{github.job}}"
 
@@ -33,6 +34,7 @@ jobs:
   job-5:
     runs-on: ubuntu-24.04
     needs: 
+      - job-3
       - job-4
     steps:
       - run: echo "${{github.job}}"
