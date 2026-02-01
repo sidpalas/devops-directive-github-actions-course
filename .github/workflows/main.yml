@@ -33,7 +33,9 @@ jobs:
       
   job-5:
     runs-on: ubuntu-24.04
-    needs: job-4
+    needs: 
+      - job-4
+      - job-1
     steps:
       - run: echo "${{github.job}}"
 
