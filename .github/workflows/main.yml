@@ -20,7 +20,6 @@ jobs:
     runs-on: ubuntu-24.04
     needs: 
       - job-2
-      - job-1
     steps:
       - run: echo "${{github.job}}"
 
