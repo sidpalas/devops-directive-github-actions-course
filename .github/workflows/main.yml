@@ -1,0 +1,43 @@
+name: Jobs order
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job-1:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "${{github.job}}"
+
+      
+  job-2:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "${{github.job}}"
+
+      
+  job-3:
+    runs-on: ubuntu-24.04
+    needs: 
+      - job-2
+    steps:
+      - run: echo "${{github.job}}"
+
+      
+  job-4:
+    runs-on: ubuntu-24.04
+    needs: 
+      - job-1
+    steps:
+      - run: echo "${{github.job}}"
+
+      
+  job-5:
+    runs-on: ubuntu-24.04
+    needs: 
+      - job-3
+      - job-4
+    steps:
+      - run: echo "${{github.job}}"
+
+      
