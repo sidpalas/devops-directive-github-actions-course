@@ -13,5 +13,7 @@ jobs:
     git-job:
         runs-on: ubuntu-24.04
         steps:
-            - run: actions/hello-world-javascript-action
+            - uses: actions/hello-world-javascript-action@v1
+              with:
+                who-to-greet: "Hello"
 
