@@ -1,22 +1,21 @@
-name: step-by-step
+name: stepbystep
 on: workflow_dispatch
 jobs:
-    job-1:
+    step1:
         runs-on: ubuntu-24.04
         steps:
-            - run: echo "run job 1"
-    job-2:
+            - run: echo "run step 1"
+    step2:
         runs-on: ubuntu-24.04
         steps:
-            - run: echo "run job 2"
-    job-3:
+            - run: echo "run step 2"
+    step3:
         runs-on: ubuntu-24.04
-        needs: [job-1, job-2]
+        needs: [step1, step2]
         steps:
-            - run: echo "run job3"
-    job-4:
+            - run: echo "run step 3"
+    step4:
         runs-on: ubuntu-24.04
-        needs: [job-1, job-3]
+        needs: [step1, step3]
         steps:
-            - run: print("Hello World")
-              shell: python
+            - run: echo "run step 4"
