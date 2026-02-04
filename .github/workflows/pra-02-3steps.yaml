@@ -11,7 +11,7 @@ jobs:
             - run: print("Hello World")
               shell: python
     github-action:
-        runs-on: ubuntu-24-04
+        runs-on: ubuntu-24.04
         steps:
             - uses: actions/hello-world-javascript-action@v1
               with:
