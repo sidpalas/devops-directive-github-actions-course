@@ -1,8 +1,7 @@
 name: Hello World
 on: workflow_dispatch
 jobs:
-    build:
+    echo-hello-world:
         runs-on: ubuntu-24.04
         steps:
-            - run: echo 'Hello World'
-
+            - run: echo "Hello World"
