@@ -14,7 +14,7 @@ The time between writing and shipping software has shrunk drastically over the d
 | ☁️ 2010s–Now      | **CI/CD pipelines & cloud**     | Multiple times per day |
 
 ![](./readme-assets/speed-of-delivery-over-time.png)
-Hi
+Hello gay
 ## History of CI Systems
 
 | Year | CI Tool           | Significance |
