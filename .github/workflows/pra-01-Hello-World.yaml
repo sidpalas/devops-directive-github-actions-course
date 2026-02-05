@@ -1,7 +1,7 @@
-name: Hello World
+name: Hello World 111
 on: workflow_dispatch
 jobs:
-    echo-hello-world:
+    echo-HelloWorld:
         runs-on: ubuntu-24.04
         steps:
             - run: echo "Hello World"

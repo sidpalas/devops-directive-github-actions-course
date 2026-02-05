@@ -1,0 +1,27 @@
+name: pull request
+on: 
+    push:
+        branches:
+        - 'hello/*'
+    pull_request:
+        types:
+        - reopened
+        - synchronize
+        - opened
+        paths:
+            - '03-core-features/filters/*.md'
+            - '!03-core-features/filters/*.txt'
+    workflow_dispatch:
+jobs:
+    echo-hello:
+        runs-on: ubuntu-24.04
+        steps:
+            - name: Print github event info
+              run: cat '$GITHUB_EVENT_PAYLOAD'
+            
+    
+
+
+
+
+
