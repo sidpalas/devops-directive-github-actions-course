@@ -1,0 +1,20 @@
+name: pull request 1
+on:
+    push:
+        branches:
+            - 'example-branch/*'
+    pull_request:
+        types:
+            - reopened
+            - opened
+            - synchronize
+        paths:
+            - '03-core-features/filters/included-file.md'
+            - '!03-core-features/filters/excluded-file.txt'
+    workflow_dispatch:
+jobs:
+    echo-github-info:
+        runs-on: ubuntu-24.04
+        steps:
+            - name: hello
+              run: cat '$GITHUB_EVENT_PATH'
