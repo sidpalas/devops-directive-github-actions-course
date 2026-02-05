@@ -1,18 +1,18 @@
 name: 3 steps
 on: workflow_dispatch
 jobs:
-    echo:
+    echo-hello:
         runs-on: ubuntu-24.04
         steps:
             - run: echo "Hello World"
-    print:
+    print-hello:
         runs-on: ubuntu-24.04
         steps:
             - run: print("Hello World")
               shell: python
-    github-action:
-        runs-on: ubuntu-24.04
-        steps:
+    run-github-action:
+            runs-on: ubuntu-24.04
+            steps:
             - uses: actions/hello-world-javascript-action@v1
               with:
-                who-to-greet: "Hello"
+                who-to-greet: 'Hello'
