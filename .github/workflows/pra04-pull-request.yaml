@@ -17,4 +17,4 @@ jobs:
         runs-on: ubuntu-24.04
         steps:
             - name: hello
-              run: cat '$GITHUB_EVENT_PATH'
+              run: cat "$GITHUB_EVENT_PATH"
