@@ -1,27 +1,20 @@
-name: pull request
-on: 
+name: pull request 1
+on:
     push:
         branches:
-        - 'hello/*'
+            - 'example/*'
     pull_request:
         types:
-        - reopened
-        - synchronize
-        - opened
+            - reopened
+            - opened
+            - synchronize
         paths:
-            - '03-core-features/filters/*.md'
-            - '!03-core-features/filters/*.txt'
+            - '03-core-features/filters/included-file.md'
+            - '!03-core-features/filters/excluded-file.txt'
     workflow_dispatch:
 jobs:
-    echo-hello:
+    echo-github-info:
         runs-on: ubuntu-24.04
         steps:
-            - name: Print github event info
-              run: cat '$GITHUB_EVENT_PAYLOAD'
-            
-    
-
-
-
-
-
+            - name: hello
+              run: cat '$GITHUB_EVENT_PATH'
