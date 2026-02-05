@@ -5,15 +5,15 @@ on:
             - 'example-branch/*'
     pull_request:
         types:
-            - reopened
             - opened
+            - reopened
             - synchronize
         paths:
-            - '03-core-features/filters/included-file.md'
             - '!03-core-features/filters/excluded-file.txt'
+            - '03-core-features/filters/included-file.md'
     workflow_dispatch:
 jobs:
-    echo-github-info:
+    echo-hello:
         runs-on: ubuntu-24.04
         steps:
             - name: hello
