@@ -2,7 +2,7 @@ name: 3 steps
 on: workflow_dispatch
 jobs:
     echo-hello:
-        runs-on: ubuntu-24.0
+        runs-on: ubuntu-24.04
         steps:
             - run: echo "Hello World"
     print-hello:
