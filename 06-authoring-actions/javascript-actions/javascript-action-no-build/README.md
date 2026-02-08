@@ -13,3 +13,5 @@ but that adds a build step.
 Here is a template repo that implemented with rollup https://github.com/actions/hello-world-javascript-action
 
 Honestly you should be using Typescript anyways... so that requires a builds step (and avoids the need to check in node_modules)
+
+Testing PR update comment - core features - Etienne Bauscher 2026-06-01T12:00:00Z
