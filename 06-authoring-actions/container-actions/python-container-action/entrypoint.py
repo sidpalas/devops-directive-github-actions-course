@@ -2,11 +2,11 @@
 import os, datetime as dt
 
 
-# GitHub injects INPUT_WHO_TO_GREET based on the input name
+# Read the input from the passed environmental variable
 name = os.getenv("INPUT_WHO_TO_GREET", "World")
 
 # Alternatively, you could read it from the args list using its position
-# (you would need to import sys package above)
+# (you would need to import sys package above, and uncomment the args in action.yaml)
 # name = sys.argv[1] if len(sys.argv) > 1 else "World"
 
 greeting = f"Hello, {name}! Time is {dt.datetime.now(dt.timezone.utc):%H:%M:%S} UTC."
