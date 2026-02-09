@@ -5,7 +5,7 @@ on:
     branches:
       - "example-branch/*"
 
-  pull_request: 
+  pull_request:
     types:
       - opened
       - synchronize
@@ -13,30 +13,37 @@ on:
     paths:
       - "03-core-features/filters/*.md"
       - "!03-core-features/filters/*.txt"
-    
+
   schedule:
-    - cron: "0 0 * * *"  
+    - cron: "0 0 * * *"
 
   workflow_dispatch:
 
 jobs:
-  say-hello-inline-bash:
+  echo-event:
     runs-on: ubuntu-24.04
     steps:
-      - run: |
-          echo "hello from inline action"
+      - name: Dump full event JSON
+        run: |
+          echo "=== $GITHUB_EVENT_NAME payload ==="
+          cat "$GITHUB_EVENT_PATH"
+  # say-hello-inline-bash:
+  #   runs-on: ubuntu-24.04
+  #   steps:
+  #     - run: |
+  #         echo "hello from inline action"
 
-  say-hello-inline-python:
-    runs-on: ubuntu-24.04
-    steps:
-      - run: |
-          print("hello world")
-        shell: python
+  # say-hello-inline-python:
+  #   runs-on: ubuntu-24.04
+  #   steps:
+  #     - run: |
+  #         print("hello world")
+  #       shell: python
 
-  say-hello-action:
-    runs-on: ubuntu-24.04
-    needs: [say-hello-inline-bash, say-hello-inline-python]
-    steps:
-      - uses: actions/hello-world-javascript-action@3cdbeeb59bb3656245cbec2ce6539a97f4b01754
-        with:
-          who-to-greet: "World"
+  # say-hello-action:
+  #   runs-on: ubuntu-24.04
+  #   needs: [say-hello-inline-bash, say-hello-inline-python]
+  #   steps:
+  #     - uses: actions/hello-world-javascript-action@3cdbeeb59bb3656245cbec2ce6539a97f4b01754
+  #       with:
+  #         who-to-greet: "World"
