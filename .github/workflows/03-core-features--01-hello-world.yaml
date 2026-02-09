@@ -9,3 +9,16 @@ jobs:
     steps:
       - run: |
           echo "hello from inline action"
+  say-hello-inline-python:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: |
+          print("hello world")
+        shell: python
+
+  say-hello-action:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/hello-world-javascript-action@3cdbeeb59bb3656245cbec2ce6539a97f4b01754
+        with:
+          who-to-greet: "World"
