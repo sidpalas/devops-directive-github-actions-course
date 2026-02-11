@@ -14,10 +14,5 @@ runs:
   image: Dockerfile
   # Option B – use a pre-built image to avoid rebuilds:
   # image: docker://ghcr.io/your-org/hello-python-action:v1
-
-  # Passing the input as an environmental variable
-  env:
-    INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
-  # Passing the value in the args list
-  # args:
-  #   - ${{ inputs.who-to-greet }}
+  args:
+    - ${{ inputs.who-to-greet }}
