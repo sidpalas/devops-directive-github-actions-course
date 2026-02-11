@@ -2,8 +2,8 @@
 import os, datetime as dt
 
 
-# GitHub injects INPUT_WHO_TO_GREET based on the input name
-name = os.getenv("INPUT_WHO_TO_GREET", "World")
+# GitHub injects INPUT_WHO-TO-GREET based on the input name (only spaces get replaced with underscores, not hyphens)
+name = os.getenv("INPUT_WHO-TO-GREET", "World")
 
 # Alternatively, you could read it from the args list using its position
 # (you would need to import sys package above)
