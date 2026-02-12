@@ -8,3 +8,23 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - run: echo "Hello from an inline bash script in a GitHub Action Workflow!"
+    
+  say-hello-inline-python:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: print("Hello from the other side, I must have called a thousand times!")
+        shell: python
+  
+  say-hello-action:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/hello-world-javascript-action@v1
+        with:
+          who-to-greet: "The heliocentric solar system"
+  
+  say-hello-action-v2:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/hello-world-javascript-action@ad41a6c27317e688719c813b0d6a25685a9bce54
+        with:
+          who-to-greet: "kaykay"
