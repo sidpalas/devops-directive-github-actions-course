@@ -1,0 +1,27 @@
+name: MultiJobWorkflow
+on:
+  workflow_dispatch:
+jobs:
+  jobs-1:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "This is Job 1"
+      - run: echo "Job 1 is used in Job 4 as a dependency"
+  jobs-2:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "This is Job 2"
+      - run: echo "Job 2 is used in Job 4 as a dependency"
+  jobs-3:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "This is Job 3"
+      - run: echo "Job 3 is used in Job 4 as a dependency"
+  jobs-4:
+    runs-on: ubuntu-24.04
+    needs:
+      - jobs-1
+      - jobs-2
+      - jobs-3
+    steps:
+      - run: echo "This is Job 4, which depends on Job 1, Job 2, and Job 3"
