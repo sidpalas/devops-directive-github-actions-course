@@ -14,9 +14,20 @@ jobs:
       - run: echo "Job 2 is used in Job 4 as a dependency"
   jobs-3:
     runs-on: ubuntu-24.04
+    needs:
+      - jobs-1
+      - jobs-2
+
     steps:
       - run: echo "This is Job 3"
       - run: echo "Job 3 is used in Job 4 as a dependency"
+      - run: print("hello")
+      - run: |
+          n=int(input("Enter a number: "))
+          if n % 2 == 0:
+              print(f"{n} is an even number.")
+          else:
+              print(f"{n} is an odd number.")
   jobs-4:
     runs-on: ubuntu-24.04
     needs:
