@@ -23,7 +23,7 @@ jobs:
       - run: echo "Job 3 is used in Job 4 as a dependency"
       - run: print("hello")
       - run: |
-          n=int(input("Enter a number: "))
+          n=100
           if n % 2 == 0:
               print(f"{n} is an even number.")
           else:
