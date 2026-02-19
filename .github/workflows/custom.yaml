@@ -1,12 +1,12 @@
 name: MyfirstWorkflow
 on:
-workflow_dispatch:
+  workflow_dispatch:
 jobs:
   customjob:
     runs-on: ubuntu-24.04
     steps:
-    - run: echo "Sasi kiran"
-    - run: | 
-             a=6
-             b=7
-             echo "The sum of a and b is: $((a + b))"
+      - run: echo "Sasi kiran"
+      - run: |
+          a=6
+          b=7
+          echo "The sum of a and b is: $((a + b))"
