@@ -7,7 +7,7 @@ on:
     branches:
       # Filter patterns cheat sheet:
       #   https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
-      - "main"
+      - "example-branch/*"
 
   ### https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#pull_request
   pull_request:
