@@ -2,6 +2,12 @@ name: Step Types
 
 on:
   workflow_dispatch:
+    inputs:
+      who-to-greet:
+        description: Who to greet in the log
+        required: true
+        default: 'World'
+        type: string
 
 jobs:
   say-hello-inline-bash:
@@ -21,4 +27,4 @@ jobs:
       - uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d # v1.1
         # - uses: actions/hello-world-javascript-action@v1 # This would work, but it would be less stable and less secure:
         with:
-          who-to-greet: "from an action in the GitHub Action marketplace! 👋"
+          who-to-greet: "${{ inputs.who-to-greet }}"
