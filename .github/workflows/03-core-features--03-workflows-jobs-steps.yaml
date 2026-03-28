@@ -19,7 +19,6 @@ jobs:
   job-3:
     runs-on: ubuntu-24.04
     needs:
-      - job-1
       - job-2
     steps:
       - run: echo "They can also depend on one another..."
