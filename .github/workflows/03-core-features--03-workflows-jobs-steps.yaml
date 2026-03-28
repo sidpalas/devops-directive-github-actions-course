@@ -12,6 +12,8 @@ jobs:
       - run: echo "within the same compute environment"
   job-2:
     runs-on: ubuntu-24.04
+    needs:
+      - job-1
     steps:
       - run: echo "Multiple jobs can run in parallel"
   job-3:
