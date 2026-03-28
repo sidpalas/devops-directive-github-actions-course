@@ -1,17 +1,11 @@
 name: Triggering Events
-# https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
 
 on:
-  ### https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#push
   push:
     branches:
-      # Filter patterns cheat sheet:
-      #   https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
-      - "example-branch/*"
+      - "future/*"
 
-  ### https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#pull_request
   pull_request:
-    ## The default is to trigger on the following types of events:
     types:
       - opened
       - synchronize
