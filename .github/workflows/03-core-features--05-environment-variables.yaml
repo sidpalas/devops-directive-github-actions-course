@@ -23,9 +23,15 @@ jobs:
           echo "WORKFLOW_VAR: $WORKFLOW_VAR"         # visible
           echo "JOB_VAR:      $JOB_VAR"              # visible
           echo "STEP_VAR:     ${STEP_VAR:-<UNSET>}"  # not set here
+      - name: Show environment variables
+        env:
+          CUSTOM_VAR: CUSTOM_VALUE
+        run: |
+          printenv | sort
 
   job-2:
     runs-on: ubuntu-24.04
+    needs: job-1
     steps:
       - name: Inspect scopes job 2 step 2
         run: |
