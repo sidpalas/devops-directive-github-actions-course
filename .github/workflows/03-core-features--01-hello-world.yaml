@@ -1,10 +1,11 @@
-name: Hello World
+name: First action by Jesus
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
-  say-hello-inline-bash:
-    runs-on: ubuntu-24.04
+  jesus_help:
+    name: Jesus help
+    runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello from an inline bash script in a GitHub Action Workflow!"
+      - name: Running first script
+        run: echo "Hello World, this is my first action by Jesus"
