@@ -1,0 +1,153 @@
+name: All-Trigger-Refrence
+
+on:
+
+  # 🔹 1. PUSH - runs when code is pushed
+    
+  push:
+    branches: [prod , dev]
+    tags: ['v*']
+    paths:
+      - 'src/**'
+
+  # 🔹 2. PULL REQUEST - runs on PR activity
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches: [main]
+    paths: ['src/**']
+
+  # 🔹 3. PULL REQUEST TARGET - runs in base repo context (has secrets access)
+  pull_request_target:
+    types: [opened, synchronize]
+
+  # 🔹 4. WORKFLOW DISPATCH - manual trigger
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment environment"
+        required: true
+        default: "dev"
+      version:
+        description: "Version to deploy"
+        required: false
+
+  # 🔹 5. SCHEDULE - cron-based execution
+  schedule:
+    - cron: "0 0 * * *"   # runs daily at midnight UTC
+
+  # 🔹 6. WORKFLOW RUN - triggers after another workflow
+  workflow_run:
+    workflows: ["CI Pipeline"]   # name of another workflow
+    types: [completed]
+
+  # 🔹 7. WORKFLOW CALL - reusable workflow
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+
+  # 🔹 8. REPOSITORY DISPATCH - external API trigger
+  repository_dispatch:
+    types: [deploy, test]
+
+  # 🔹 9. RELEASE - triggered on release events
+  release:
+    types: [published, created, edited, deleted]
+
+  # 🔹 10. REGISTRY PACKAGE - package publish/update
+  registry_package:
+    types: [published, updated]
+
+  # 🔹 11. DEPLOYMENT - deployment created
+  deployment:
+
+  # 🔹 12. DEPLOYMENT STATUS - deployment state changes
+  deployment_status:
+
+  # 🔹 13. CHECK RUN - individual check updates
+  check_run:
+    types: [created, completed, rerequested]
+
+  # 🔹 14. CHECK SUITE - group of checks
+  check_suite:
+    types: [completed]
+
+  # 🔹 15. STATUS - commit status changes
+  status:
+
+  # 🔹 16. ISSUES - issue lifecycle events
+  issues:
+    types: [opened, edited, deleted, closed, reopened]
+
+  # 🔹 17. ISSUE COMMENT - comment on issues or PR
+  issue_comment:
+    types: [created, edited, deleted]
+
+  # 🔹 18. DISCUSSION - GitHub Discussions activity
+  discussion:
+    types: [created, edited, deleted]
+
+  # 🔹 19. DISCUSSION COMMENT
+  discussion_comment:
+    types: [created, edited, deleted]
+
+  # 🔹 20. PULL REQUEST REVIEW
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+
+  # 🔹 21. PULL REQUEST REVIEW COMMENT
+  pull_request_review_comment:
+    types: [created, edited, deleted]
+
+  # 🔹 22. BRANCH PROTECTION RULE
+  branch_protection_rule:
+    types: [created, edited, deleted]
+
+  # 🔹 23. CREATE - branch or tag created
+  create:
+
+  # 🔹 24. DELETE - branch or tag deleted
+  delete:
+
+  # 🔹 25. FORK - repository forked
+  fork:
+
+  # 🔹 26. GOLLUM - wiki changes
+  gollum:
+
+  # 🔹 27. LABEL - label created/edited/deleted
+  label:
+    types: [created, edited, deleted]
+
+  # 🔹 28. MILESTONE - milestone changes
+  milestone:
+    types: [created, closed, opened, edited, deleted]
+
+  # 🔹 29. PAGE BUILD - GitHub Pages build
+  page_build:
+
+  # 🔹 30. PUBLIC - repo made public
+  public:
+
+  # 🔹 31. MERGE GROUP - merge queue events
+  merge_group:
+    types: [checks_requested]
+
+  # 🔹 32. WATCH - repo starred
+  watch:
+    types: [started]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Trigger Info
+        run: |
+          echo "Event Name: ${{ github.event_name }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "Actor: ${{ github.actor }}"

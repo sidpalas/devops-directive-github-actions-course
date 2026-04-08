@@ -1,0 +1,20 @@
+name : Step Types
+
+on:
+  workflow_dispatch:
+
+jobs:
+  say-hello-inline-bash:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo  "this message is from the usage of inline bash "
+    
+  say-hello-inline-python:
+    runs-on: ubuntu-24.04
+    steps:
+     - run: print("Hello this is used via inline python")
+  
+  say-hello-custom-actions:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d

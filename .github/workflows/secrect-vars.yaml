@@ -1,0 +1,51 @@
+name: secret-vars
+
+on:
+  workflow_dispatch:
+
+jobs:
+  staging-environment:
+    runs-on: ubuntu-24.04
+    environment: Staging
+
+    env:
+      EXAMPLE_REPOSITORY_SECRET: ${{ secrets.EXAMPLE_REPOSITORY_SECRET }}
+      EXAMPLE_REPOSITORY_VARIABLE: ${{ vars.EXAMPLE_REPOSITORY_VARIABLE }}
+      EXAMPLE_ENVIRONMENT_SECRET: ${{ secrets.EXAMPLE_ENVIRONMENT_SECRET }}
+      EXAMPLE_ENVIRONMENT_VARIABLE: ${{ vars.EXAMPLE_ENVIRONMENT_VARIABLE }}
+
+    steps:
+      - name: Debug all env (staging)
+        run: |
+          echo "---- ENV DUMP (Staging) ----"
+          env | sort
+
+      - name: Inspect values inside
+        run: |
+          echo "Repo secret (masked): $EXAMPLE_REPOSITORY_SECRET"
+          echo "Repo variable: $EXAMPLE_REPOSITORY_VARIABLE"
+          echo "Environment secret: $EXAMPLE_ENVIRONMENT_SECRET"
+          echo "Environment variable: $EXAMPLE_ENVIRONMENT_VARIABLE"
+
+  production-environment:
+    runs-on: ubuntu-24.04
+    environment: Production
+
+    env:
+      EXAMPLE_REPOSITORY_SECRET: ${{ secrets.EXAMPLE_REPOSITORY_SECRET }}
+      EXAMPLE_REPOSITORY_VARIABLE: ${{ vars.EXAMPLE_REPOSITORY_VARIABLE }}
+      EXAMPLE_ENVIRONMENT_SECRET: ${{ secrets.EXAMPLE_ENVIRONMENT_SECRET }}
+      EXAMPLE_ENVIRONMENT_VARIABLE: ${{ vars.EXAMPLE_ENVIRONMENT_VARIABLE }}
+
+    steps:
+      - name: Debug all env (production)
+        run: |
+          echo "---- ENV DUMP (Production) ----"
+          env | sort
+
+      - name: Inspect Production values
+        run: |
+          echo "Repo secret (masked): $EXAMPLE_REPOSITORY_SECRET"
+          echo "Repo variable: $EXAMPLE_REPOSITORY_VARIABLE"
+          echo "Environment secret: $EXAMPLE_ENVIRONMENT_SECRET"
+          echo "Environment variable: $EXAMPLE_ENVIRONMENT_VARIABLE"

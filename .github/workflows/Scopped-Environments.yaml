@@ -1,0 +1,47 @@
+name: Scopped-Environments
+
+env: 
+ WORKFLOW_ENV: I_AM_WORKFLOW_SCOPE_ENVIRONMENT_VARIABLE
+on:
+ workflow_dispatch:
+
+
+jobs:
+  job-1:
+    env:
+      JOB_ENV: I_AM_JOB_SCOPE_ENVIRONMENT_VARIABLE
+    runs-on: ubuntu-24.04
+    steps:
+      - name: JOB 1 STEP 1
+        env: 
+          STEP_ENV: I_AM_STEP_SCOPE_ENVIRONMENT_VARIABLE
+        run: |
+              echo "WORKFLOW_VARIABLE == ${WORKFLOW_ENV}"
+              echo "JOB_VARIABLE == ${JOB_ENV}"
+              echo "STEP_VARIABLE == ${STEP_ENV}"
+
+      - name: JOB1 STEP 2
+        run: |
+              echo "WORKFLOW_VARIABLE == ${WORKFLOW_ENV}"
+              echo "JOB_VARIABLE == ${JOB_ENV}"
+              echo "STEP_VARIABLE == ${STEP_ENV : -UNSET}"
+
+  job-2:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: JOB 2 STEP 2
+        run: |
+              echo "WORKFLOW_VARIABLE == ${WORKFLOW_ENV}"
+              echo "JOB_VARIABLE == ${JOB_ENV : -UNSET}"
+              echo "STEP_VARIABLE == ${STEP_ENV : -UNSET}"
+               
+
+
+
+
+
+     
+  
+
+
+ 
