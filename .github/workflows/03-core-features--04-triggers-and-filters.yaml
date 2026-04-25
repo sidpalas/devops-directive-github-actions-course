@@ -23,8 +23,8 @@ on:
       - "!03-core-features/filters/*.txt"
 
   ### https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule
-  # schedule:
-  #   - cron: "0 0 * * *" # Midnight UTC
+  schedule:
+    - cron: "0 0 * * *" # Midnight UTC
 
   ## Manual Trigger
   workflow_dispatch:
