@@ -11,6 +11,9 @@ jobs:
 
   say-hello-inline-python:
     runs-on: ubuntu-24.04
+    needs:
+      - say-hello-action
+      - say-hello-inline-bash
     steps:
       - run: print("Hello from an inline python script in a GitHub Action Workflow!")
         shell: python
@@ -21,4 +24,4 @@ jobs:
       - uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d # v1.1
         # - uses: actions/hello-world-javascript-action@v1 # This would work, but it would be less stable and less secure:
         with:
-          who-to-greet: "from an action in the GitHub Action marketplace! 👋"
+          who-to-greet: "running an action in the GitHub Action marketplace"
