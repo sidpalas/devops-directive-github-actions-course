@@ -36,14 +36,14 @@ on:
 jobs:
   read-only-pr:
     runs-on: ubuntu-24.04
-    permissions:
-      pull-requests: read # Can read PR data only
     continue-on-error: true # Avoids failing entire workflow
     steps:
       - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
       
       - name: List the first 5 open PRs (allowed)
-        run: gh pr list --limit 5
+        run: |
+          gh pr list --limit 5
+          echo "done"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -51,6 +51,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo "abc: ${{ secrets.GITHUB_TOKEN }}"
           gh pr edit 1 --add-label "documentation"
 
       - name: Confirm the failure

@@ -22,7 +22,7 @@ jobs:
 
       # Populate directory only on miss
       - name: Populate cache directory
-        if: steps.demo-cache.outputs.cache-hit != 'true'
+#        if: steps.demo-cache.outputs.cache-hit != 'true'
         run: |
           echo "Cache miss – generating contents"
           mkdir -p demo-cache
