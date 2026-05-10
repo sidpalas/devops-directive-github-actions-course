@@ -1,0 +1,10 @@
+name: Hello Manikanta
+
+on:
+  workflow_dispatch:
+
+jobs:
+  say-hello-to-manikanta:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "Hello Manikanta"
