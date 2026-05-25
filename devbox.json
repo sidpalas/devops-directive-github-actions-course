@@ -19,7 +19,8 @@
     "poetry@latest",
     "nodejs_20@latest",
     "namespace-cli@latest",
-    "gnused@latest"
+    "gnused@latest",
+    "git@latest"
   ],
   "shell": {
     "init_hook": [
