@@ -7,18 +7,19 @@ jobs:
   say-hello-inline-bash:
     runs-on: ubuntu-24.04
     steps:
-      - run: echo "Hello from an inline bash script in a GitHub Action Workflow!"
+      - run: echo "New features in the GitHub Action Workflow!"
 
   say-hello-inline-python:
     runs-on: ubuntu-24.04
     steps:
-      - run: print("Hello from an inline python script in a GitHub Action Workflow!")
+      - run: print("This is a python script in a GitHub Action Workflow!")
         shell: python
 
   say-hello-action:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d # v1.1
-        # - uses: actions/hello-world-javascript-action@v1 # This would work, but it would be less stable and less secure:
+      - uses: actions/hello-world-javascript-action@v1 # use the published v1 tag (resolvable and stable)
+        # NOTE: pinning to a published tag (e.g. @v1) ensures the action resolves.
+        # If you need a specific commit, verify the SHA exists in the action repo and use that instead.
         with:
-          who-to-greet: "from an action in the GitHub Action marketplace! 👋"
+          who-to-greet: "from an action in the GitHub Action marketplace Thank you! 👋"
