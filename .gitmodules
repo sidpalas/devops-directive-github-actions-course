@@ -12,4 +12,4 @@
 	url = https://github.com/sidpalas/shell-container-action.git
 [submodule "capstone"]
 	path = capstone
-	url = git@github.com:sidpalas/capstone.git
+	url = https://github.com/sidpalas/capstone.git

@@ -1,0 +1,53 @@
+name: Dynamic Matrix
+on:
+  workflow_dispatch:
+    inputs:
+      length:
+        description: "Number of foo/bar pairs to generate"
+        required: true
+        default: "2"
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      include: ${{ steps.gen.outputs.include }}
+    steps:
+      - name: Generate paired list (foo = random, bar = random)
+        id: gen
+        env:
+          LENGTH: ${{ github.event.inputs.length }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          n="${LENGTH:-2}"
+
+          # Generally I would extract this type of logic to a separate
+          # Taskfile task to make it easier to iterate/validate
+          include_json=$(
+            {
+              for ((i=1; i<=n; i++)); do
+                foo_val=$((RANDOM % 100))
+                bar_val=$((RANDOM % 100))
+                jq -n -c \
+                  --argjson foo "$foo_val" \
+                  --argjson bar "$bar_val" \
+                  '{foo:$foo, bar:$bar}'
+              done
+            } | jq -s -c .
+          )
+
+          # Output the array for `matrix.include`
+          echo "include=$include_json" >> "$GITHUB_OUTPUT"
+
+  execute:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.generate-matrix.outputs.include) }}
+    steps:
+      - name: Use matrix values (paired randoms)
+        run: echo "Matrix - foo=${{ matrix.foo }}, bar=${{ matrix.bar }}"

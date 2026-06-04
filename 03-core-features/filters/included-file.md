@@ -1,4 +1,4 @@
-This change will trigger a workflow run based on these path filters:
+This change will trigger a workflow run based on these path filters::
 
 ```yaml
 paths:
