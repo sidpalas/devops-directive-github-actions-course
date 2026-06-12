@@ -1,0 +1,32 @@
+name: Hello_world_using_many_jobs
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo  "Hello world from inline bash"
+      - run: echo "A job contain on one or more steps"
+      - run: echo "Which run sequentially "
+      - run: echo "within the same compute environment"
+
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Multiple jobs can run in parallel"
+  job-3:
+    runs-on: ubuntu-latest
+    needs:
+      - job1
+      - job2
+    steps:
+      - run: echo "They can also depend on one another..."
+  job-4:
+    runs-on: ubuntu-latest
+    needs: 
+      - job2
+      - job-3
+    steps:
+      - run: echo ".. thoses things forms a cyclic graph of jobs"
