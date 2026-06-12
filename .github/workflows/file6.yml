@@ -1,0 +1,11 @@
+name: Trigger_pull_request
+on:
+
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "A pull request was opened or updated"
+
