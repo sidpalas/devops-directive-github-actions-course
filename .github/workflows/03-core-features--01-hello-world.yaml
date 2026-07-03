@@ -7,4 +7,20 @@ jobs:
   say-hello-inline-bash:
     runs-on: ubuntu-24.04
     steps:
-      - run: echo "Hello from an inline bash script in a GitHub Action Workflow!"
+      - name: Print Hello
+        run: echo "Hello from an inline bash script in a GitHub Action Workflow!"
+
+  say-hello-inline-python:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Print Hello Python
+        run: print("Hello from a n inline python script in a GitHub Action Workflow!")
+        shell: python
+
+  git-action-hello:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: using Action
+        uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d
+        with: 
+          who-to-greet: "here is the greeting ! <------"
