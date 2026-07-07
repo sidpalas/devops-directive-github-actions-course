@@ -44,6 +44,7 @@ jobs:
   imjobseven:
     runs-on: ubuntu-24.04
     needs:
+      - imjobfifth
       - imjobsixth
     steps:
       - run: echo "im job seventh"
