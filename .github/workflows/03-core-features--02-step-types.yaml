@@ -1,8 +1,8 @@
 name: Step Types
 
 on:
-  workflow_dispatch:
-
+  workflow_dispatch:  # manual trigger
+# each job will run in parallel 
 jobs:
   say-hello-inline-bash:
     runs-on: ubuntu-24.04
