@@ -60,4 +60,4 @@ git clone --recurse-submodules git@github.com:sidpalas/devops-directive-github-a
 >   }
 > }
 > ```
-      
+      [![Hello World](https://github.com/pedrozenatte/devops-directive-github-actions/actions/workflows/03-core-features--01-hello-world.yaml/badge.svg?branch=main)](https://github.com/pedrozenatte/devops-directive-github-actions/actions/workflows/03-core-features--01-hello-world.yaml)
