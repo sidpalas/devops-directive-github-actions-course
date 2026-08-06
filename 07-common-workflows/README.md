@@ -1,6 +1,6 @@
 # Common workflows
 
-## Validate
+## Valdate
 - **Lint** – Run automated linters (e.g., ESLint, flake8) to catch style violations and obvious syntax errors early.
 - **Test** – Execute unit, integration, or end-to-end test suites to verify that new changes don’t break existing functionality.
 - **Static analysis** – Analyze source code without running it to uncover bugs, complexity hot-spots, or security issues.
