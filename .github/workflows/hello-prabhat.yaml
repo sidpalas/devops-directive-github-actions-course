@@ -1,0 +1,8 @@
+name: Hello Prabhat
+on:
+    workflow_dispatch:
+jobs:
+    Say-Hello:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "Hello Prabhat workflow ran Manually"
