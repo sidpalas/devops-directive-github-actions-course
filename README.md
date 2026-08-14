@@ -31,7 +31,7 @@ This course is made possible thanks to [namespace.so](https://namespace.so/?utm_
 
 1. **Clone this repository (including submodules)**  
 ```bash
-git clone --recurse-submodules git@github.com:sidpalas/devops-directive-github-actions-course.git
+git clone --recurse-submodules https://github.com/GorkemUtku02/devops-directive-github-actions-course
 ```
 
 2. **Install DevBox** – DevBox bootstraps all required CLI tools (Go, Node.js, Python, `act`, `task`, `npc`, `civo`, `gh`, `jq`, `yq`, `kubectl`, `kluctl`, ...).  
