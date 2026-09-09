@@ -16,6 +16,7 @@ on:
       - "!03-core-features/filters/*.txt"
   schedule:
     - cron: "0 0 * * *"
+  # I am modifying the workflow_dispatch event to include an input parameter
   workflow_dispatch:
 
 jobs:
