@@ -4,6 +4,11 @@ on:
   workflow_dispatch:
 
 jobs:
+  say-hello-my-inline-bash:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: echo "Just Test ubuntu"
+
   say-hello-inline-bash:
     runs-on: ubuntu-24.04
     steps:
