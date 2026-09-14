@@ -5,9 +5,10 @@ on:
 
 jobs:
   say-hello-my-inline-bash:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    container: alpine:latest # Lightweight Alpine Linux
     steps:
-      - run: echo "Just Test ubuntu"
+      - run: echo "Running inside Alpine!"
 
   say-hello-inline-bash:
     runs-on: ubuntu-24.04
