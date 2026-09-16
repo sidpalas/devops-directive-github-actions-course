@@ -4,6 +4,12 @@ on:
   workflow_dispatch:
 
 jobs:
+  say-hello-my-inline-bash:
+    runs-on: ubuntu-latest
+    container: alpine:latest # Lightweight Alpine Linux
+    steps:
+      - run: echo "Running inside Alpine!"
+
   say-hello-inline-bash:
     runs-on: ubuntu-24.04
     steps:

@@ -19,10 +19,14 @@ jobs:
           echo "STEP_VAR:     $STEP_VAR"       # visible only here
 
       - name: Inspect scopes job 1 step 2
+      env:
+        STEP_VAR1: I_AM_STEP2_SCOPED
         run: |
           echo "WORKFLOW_VAR: $WORKFLOW_VAR"         # visible
           echo "JOB_VAR:      $JOB_VAR"              # visible
           echo "STEP_VAR:     ${STEP_VAR:-<UNSET>}"  # not set here
+          echo "STEP_VAR_TEST:   $STEP_VAR1"  # not set here
+          echo "STEP_VAR_TEST:   ${STEP_VAR1:--notset}"  # not set here
 
   job-2:
     runs-on: ubuntu-24.04
