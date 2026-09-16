@@ -24,7 +24,7 @@ jobs:
           echo "JOB_VAR:      $JOB_VAR"              # visible
           echo "STEP_VAR:     ${STEP_VAR:-<UNSET>}"  # not set here
           echo "STEP_VAR_TEST:   $STEP_VAR"  # not set here
-          echo "STEP_VAR_TEST:   ${STEP_VAR:-notset}"  # not set here
+          echo "STEP_VAR_TEST:   ${STEP_VAR:--notset}"  # not set here
 
   job-2:
     runs-on: ubuntu-24.04
