@@ -1,0 +1,74 @@
+name: Permissions
+on:
+  workflow_dispatch:
+
+# Permissions can be defined at the workflow or job level
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
+
+################
+# Default Permissions
+################
+# permissions:
+#   contents: read
+#   packages: read
+################
+
+################
+# All Permission Types
+################
+# permissions:
+#   actions: read|write|none
+#   attestations: read|write|none
+#   checks: read|write|none
+#   contents: read|write|none
+#   deployments: read|write|none
+#   id-token: write|none
+#   issues: read|write|none
+#   models: read|none
+#   discussions: read|write|none
+#   packages: read|write|none
+#   pages: read|write|none
+#   pull-requests: read|write|none
+#   security-events: read|write|none
+#   statuses: read|write|none
+################
+
+jobs:
+  read-only-pr:
+    runs-on: ubuntu-24.04
+    permissions:
+      pull-requests: read # Can read PR data only
+    continue-on-error: true # Avoids failing entire workflow
+    steps:
+      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+      
+      - name: List the first 5 open PRs (allowed)
+        run: gh pr list --limit 5
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Attempt to add a label (expected to fail)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr edit 1 --add-label "documentation"
+
+      - name: Confirm the failure
+        if: failure()
+        run: echo "❌  Write operation was blocked as expected – token is read-only."
+
+  read-write-pr:
+    runs-on: ubuntu-24.04
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+
+      - name: Attempt to add a label (expected to succeed)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr edit 1 --add-label "documentation"
+      - name: Confirm the
+        if: success()
+        run: echo "✅ Write operation succeeded!"

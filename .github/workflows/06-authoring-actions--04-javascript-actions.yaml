@@ -1,0 +1,50 @@
+name: Javascript Actions
+on:
+  workflow_dispatch:
+
+jobs:
+  javascript-no-build:
+    runs-on: ubuntu-latest
+    name: Javascript action (no build)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+      - name: Run javascript action
+        uses: ./06-authoring-actions/javascript-actions/javascript-action-no-build
+        id: hello
+        with:
+          who-to-greet: "from a javascript github action 👋"
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
+
+  javascript-with-build:
+    runs-on: ubuntu-latest
+    name: Javascript action (with build)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+        with:
+          submodules: true
+      - name: Run javascript action
+        uses: ./06-authoring-actions/javascript-actions/javascript-action-with-build
+        id: hello
+        with:
+          who-to-greet: "from a javascript github action 👋"
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
+
+  typescript:
+    runs-on: ubuntu-latest
+    name: Typescript action
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+        with:
+          submodules: true
+      - name: Run typescript action
+        uses: ./06-authoring-actions/javascript-actions/typescript-action-with-build
+        id: hello
+        with:
+          milliseconds: 5000
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"

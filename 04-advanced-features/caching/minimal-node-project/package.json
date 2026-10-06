@@ -1,0 +1,15 @@
+{
+  "name": "minimal-node-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "left-pad": "^1.3.0"
+  }
+}
