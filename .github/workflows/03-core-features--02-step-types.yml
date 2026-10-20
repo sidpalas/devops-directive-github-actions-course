@@ -1,4 +1,4 @@
-name: Hello World
+name: Step Types
 
 on:
   workflow_dispatch:
