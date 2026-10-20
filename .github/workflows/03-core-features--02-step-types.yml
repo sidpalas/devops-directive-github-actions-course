@@ -18,6 +18,6 @@ jobs:
   say-hello-to-my-third-party-action:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/hello-world-javascript-action
+      - uses: actions/hello-world-javascript-action@v1
         with:
-          who-to-greet: "world"
+          who-to-greet: "world, I am third party action."
