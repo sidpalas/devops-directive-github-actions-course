@@ -1,0 +1,30 @@
+name: Workflows, Jobs and Steps
+
+on:
+  workflow_dispatch:
+
+jobs:
+  greet-1:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: 'echo "Student: Hello"'
+
+  greet-2:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: 'echo "Student: Good morning"'
+
+  response-1:
+    runs-on: ubuntu-24.04
+    needs:
+      - greet-1
+      - greet-2
+    steps:
+      - run: 'echo "Teacher: Hey there, good morning to you too. what is the purpose of your visit"'
+
+  response-2:
+    runs-on: ubuntu-24.04
+    needs:
+      - response-1
+    steps:
+      - run: 'echo "Student: I wanted to learn Github Actions and hence CI/CD"'
