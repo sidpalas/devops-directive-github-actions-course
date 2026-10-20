@@ -1,0 +1,23 @@
+name: Hello World
+
+on:
+  workflow_dispatch:
+
+jobs:
+  say-hello-to-my-little-friend:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "Hello, world!"
+
+  say-hello-to-my-little-python:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: print("Hello, world! I am python!!")
+        shell: python
+
+  say-hello-to-my-third-party-action:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/hello-world-javascript-action
+        with:
+          who-to-greet: "world"
