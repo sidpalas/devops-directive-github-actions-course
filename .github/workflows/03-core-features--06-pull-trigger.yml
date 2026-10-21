@@ -1,0 +1,19 @@
+name: Pull Trigger
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - "example/**"
+
+jobs:
+  pull-trigger:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Pull Trigger
+        run: |
+          echo "pull request opened targeting branch: $GITHUB_BASE_REF"
+          echo "pull request opened from branch: $GITHUB_HEAD_REF"
