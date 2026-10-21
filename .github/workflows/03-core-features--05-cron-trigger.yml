@@ -1,4 +1,4 @@
-name: Inform push on branch
+name: Cron Trigger
 
 on:
   schedule:
@@ -8,5 +8,5 @@ jobs:
   inform-push:
     runs-on: ubuntu-24.04
     steps:
-      - name: Notify push on branch
-        run: echo "A new commit on branch $GITHUB_REF_NAME received"
+      - name: Cron Trigger
+        run: echo "ping"
