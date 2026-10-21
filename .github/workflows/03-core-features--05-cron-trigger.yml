@@ -5,7 +5,7 @@ on:
     - cron: "* * * * *"
 
 jobs:
-  inform-push:
+  cron-trigger:
     runs-on: ubuntu-24.04
     steps:
       - name: Cron Trigger
