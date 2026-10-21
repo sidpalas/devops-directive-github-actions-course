@@ -1,0 +1,13 @@
+name: Inform push on branch
+
+on:
+  push:
+    branches:
+      - "example/*"
+
+jobs:
+  inform-push:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Notify push on branch
+        run: echo "A new commit on branch $GITHUB_REF_NAME received"
