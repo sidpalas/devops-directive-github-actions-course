@@ -1,0 +1,19 @@
+name: Weekday 5-Minute Logger
+
+on:
+  schedule:
+    # Runs every 5 minutes, Monday through Friday (1-5)
+    - cron: "*/5 * * * 1-5"
+  # Allows manual triggering from the Actions tab for immediate testing
+  workflow_dispatch:
+
+jobs:
+  scheduled-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Print Timestamp
+        run: |
+          echo "Current execution timestamp: $(date +'%Y/%m/%d %H:%M:%S')"
