@@ -28,3 +28,11 @@ jobs:
       - job-3
     steps:
       - run: echo "...to form a directed acyclic graph (DAG)"
+  job-5:
+    runs-on: ubuntu-latest
+    needs:
+      - job-2
+      - job-4
+      - job-3
+    steps:
+     - run: echo "Job-2 ,3 and 4 are Completed"
