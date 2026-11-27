@@ -1,0 +1,25 @@
+name: first_workflow
+
+on:
+    workflow_dispatch:
+      
+jobs:
+  first_job:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: print("this is the first job written in python")
+        shell: python
+    
+  second_job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hey, this is the second job written in shell script"
+
+  third_job:
+    runs-on: ubuntu-24.04
+    needs:
+        - first_job
+        - second_job
+    steps:
+      - run: console.log("Hey, this is the third job written in javascript")
+        shell: node
