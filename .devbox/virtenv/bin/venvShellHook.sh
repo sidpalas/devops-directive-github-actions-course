@@ -1,0 +1,1 @@
+/home/carlthecreator/github_actions_tutorial/.devbox/virtenv/python312/bin/venvShellHook.sh
