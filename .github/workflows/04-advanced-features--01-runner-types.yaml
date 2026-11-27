@@ -26,6 +26,9 @@ jobs:
         run: |
           echo "Hello from ${{ runner.os }}-${{ runner.arch }}"
           echo "Runner name (type): ${{ runner.name }}"
+      - name: Say hello with the step 2
+        run: | 
+          echo "Hey youoouououou hows doing "
 
   github-hosted-windows-vm:
     name: Windows 2022 VM

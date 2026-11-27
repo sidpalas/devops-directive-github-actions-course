@@ -4,10 +4,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  dhairyas-fist-job:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo "Dhairya my kucchu pucchu where are youuuu."
   say-hello-inline-bash:
     runs-on: ubuntu-24.04
     steps:
       - run: echo "Hello from an inline bash script in a GitHub Action Workflow!"
+    needs: 
+      - dhairyas-fist-job
+      - say-hello-inline-python
 
   say-hello-inline-python:
     runs-on: ubuntu-24.04
