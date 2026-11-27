@@ -27,7 +27,7 @@ jobs:
   job-2:
     runs-on: ubuntu-24.04
     steps:
-      - name: Inspect scopes job 2 step 2
+      - name: Inspect scopes job 2 step 1
         run: |
           echo "WORKFLOW_VAR: $WORKFLOW_VAR"                 # still visible
           echo "JOB_VAR:      ${FOO:-<UNSET>}"               # not set here
