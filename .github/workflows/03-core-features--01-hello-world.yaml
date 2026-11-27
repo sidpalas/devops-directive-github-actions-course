@@ -1,10 +1,33 @@
-name: Hello World
+name: Hello World Series
 
 on:
-  workflow_dispatch:
+  push: 
+
 
 jobs:
-  say-hello-inline-bash:
-    runs-on: ubuntu-24.04
+  job1:
+    environment:
+      name: ${{ github.ref_name == 'main' && 'Prod' || 'NonProd' }}
+    runs-on: ubuntu-latest
+    env:
+      test_env: "This is the value of the job var."
+    outputs: 
+      test_env: ${{ steps.set_my_var.outputs.my_test }}
     steps:
-      - run: echo "Hello from an inline bash script in a GitHub Action Workflow!"
+      - name: Setting Variable
+        id: set_my_var
+        run: 
+          my_var="I set the var via interpolation, or whatever it's called.";
+          echo "my_test=${my_var}" >> "$GITHUB_OUTPUT";
+          echo $test_env;
+          echo '${{ vars.test_var}} in Github variables, and this is the secret ${{ secrets.test_secret}}'
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - run: echo "${{ needs.job1.outputs.test_env }}"
+
+
+
+    
