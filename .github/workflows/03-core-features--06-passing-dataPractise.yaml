@@ -1,0 +1,26 @@
+name: Pededaju dannie
+on:
+  workflow_dispatch:
+
+jobs:
+  anton:
+    runs-on: ubuntu-24.04
+
+    outputs:
+      peremennaia: ${{ steps.mojId.outputs.peremennaia }}
+
+    steps:
+      - name: Sozdanie i peredacha peremennoj
+        id: mojId
+        run: |
+          peremennaia=pizdaVolosataja
+          echo "peremennaia=$peremennaia" >> "$GITHUB_OUTPUT"
+
+  gandon:
+    runs-on: ubuntu-24.04
+    needs: anton
+
+    steps:
+      - name: take value
+        run: |
+          echo "Value from anton: ${{ needs.anton.outputs.peremennaia }}"
