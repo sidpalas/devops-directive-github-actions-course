@@ -1,0 +1,21 @@
+name: Test_workflow
+on:
+  workflow_dispatch:
+jobs:
+  say-hello-inline-bash:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello world from inline bash"
+
+  say-hello-from-python:
+    runs-on: ubuntu-latest
+    steps:
+      - run: print("Hello from inline bash  inside Github Actions")
+        shell: python
+  say-hello-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/hello-world-javascript-action@v1
+      # - uses: actions/hello-world-javascript-action@081a6d193d1dcb38460df1e6927486d748730f9d 
+        with:
+          who-to-greet: "From an action in the Github Marketplace"

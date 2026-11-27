@@ -1,0 +1,26 @@
+name: Push_trigger_lab
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Someone pushed code"
+      - run: echo $GITHUB_REF
+      - run: echo $GITHUB_SHA
+      - run: echo $GITHUB_REPOSITORY
+      - run: echo $GITHUB_ACTOR
+      - run: echo $GITHUB_EVENT_NAME
+      - run: echo $GITHUB_WORKFLOW
+      - run: echo $GITHUB_RUN_ID
+      - run: echo $GITHUB_RUN_NUMBER
+      - run: echo $GITHUB_JOB
+      - run: echo $GITHUB_ACTION
+      - run: echo $GITHUB_ACTION_PATH
+      - run: echo $GITHUB_ACTION_REF
+      - run: echo $GITHUB_HEAD_REF
+      - run: echo $GITHUB_BASE_REF
+      - run: echo $GITHUB_EVENT_PATH
+
+      
