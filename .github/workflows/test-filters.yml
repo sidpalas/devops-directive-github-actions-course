@@ -1,0 +1,22 @@
+name: Practical Demo Workflow
+
+on:
+  # 1. Cron Schedule Event (Runs every 15 minutes)
+  schedule:
+    - cron: "*/15 * * * *"
+
+  # 2. Pull Request Path Filtering Event
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - "docs/*.md"          # Match any markdown file in docs/
+      - "!docs/ignored.txt"  # Explicitly ignore this text file
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Execution Trigger
+        run: |
+          echo "Workflow triggered successfully!"
+          echo "Triggered by event: ${{ github.event_name }}"
