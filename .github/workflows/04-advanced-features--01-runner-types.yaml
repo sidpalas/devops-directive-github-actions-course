@@ -77,7 +77,7 @@ jobs:
   ######################################
   namespace-ubuntu-vm:
     name: Namespace Ubuntu VM
-    runs-on: namespace-profile-default
+    runs-on: namespace-profile-nikola-test
     steps:
       - name: Show runner info
         run: |
