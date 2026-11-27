@@ -1,0 +1,50 @@
+name: create-own-suff
+
+on:
+  workflow_dispatch:
+
+jobs:
+  imjobfirst:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "im job first "
+
+  imjobsecond:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "im job second"
+
+  imjobthird:
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "im job third"
+
+  imjobfour:
+    runs-on: ubuntu-24.04
+    needs:
+      - imjobfirst
+      - imjobsecond
+      - imjobthird
+    steps:
+      - run: echo "im job fourth"
+
+  imjobfifth:
+    runs-on: ubuntu-24.04
+    needs:
+      - imjobfour
+    steps:
+      - run: echo "im job fifth"
+
+  imjobsixth:
+    runs-on: ubuntu-24.04
+    needs:
+      - imjobfour
+    steps:
+      - run: echo "im job sixth"
+  imjobseven:
+    runs-on: ubuntu-24.04
+    needs:
+      - imjobfifth
+      - imjobsixth
+    steps:
+      - run: echo "im job seventh"

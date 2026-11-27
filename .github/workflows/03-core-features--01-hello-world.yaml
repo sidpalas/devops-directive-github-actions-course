@@ -1,10 +1,11 @@
 name: Hello World
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # this is github event that trigger the jobs
 
 jobs:
-  say-hello-inline-bash:
+  say-hello-inline-bash: # this is a job that runs an inline bash script
     runs-on: ubuntu-24.04
     steps:
       - run: echo "Hello from an inline bash script in a GitHub Action Workflow!"
+
