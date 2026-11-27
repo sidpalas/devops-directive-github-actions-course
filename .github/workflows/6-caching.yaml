@@ -1,0 +1,23 @@
+name: Caching
+
+on:
+  workflow_dispatch:
+
+jobs:
+  node-cache:
+    name: npm dependency cache (set up node)
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: 04-advanced-features/caching/minimal-node-project
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: 04-advanced-features/caching/minimal-node-project/package-lock.json
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+      - name: List first few modules
+        run: ls -R node_modules | head
