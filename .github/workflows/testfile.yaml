@@ -1,0 +1,11 @@
+name: Test Workflow Hello World 
+
+on: 
+  workflow_dispatch:
+
+jobs: 
+ greet-every-user:
+     runs-on: ubuntu-24.04
+     steps:
+     - run: echo "Hello, User! This is a test workflow."
+     - run: echo "Welcome to GitHub Actions!"
