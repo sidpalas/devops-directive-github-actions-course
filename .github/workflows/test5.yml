@@ -1,0 +1,10 @@
+name: Trigger_on_branch
+on:
+  push:
+    branches:
+      - "feature/*"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Branch feature detected"
